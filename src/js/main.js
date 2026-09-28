@@ -14,6 +14,7 @@ let finalResult = ''
 let isLevelSuccess = false
 let hintTimeout1
 let hintTimeout2
+
 const results = []
 
 const htmlGoal = document.querySelector('#html-goal')
@@ -36,34 +37,55 @@ const difficultyNames = {
   facil: 'Fácil',
   medio: 'Médio',
   dificil: 'Difícil',
-  insano: '💀 Insano',
+  insano: '💀 Nightmare',
+  desconhecido: '❓ ???',
 }
 
 const difficultyDescriptions = {
   facil: 'Seletores básicos e fundamentos',
   medio: 'Combinações e pseudo-classes',
   dificil: 'Seletores avançados',
-  insano: 'CSS avançado sem piedade',
+  insano: '💀 CSS avançado sem piedade',
+  desconhecido: '❓ 10× além de Nightmare',
 }
 
 const difficultyPanel = document.createElement('section')
+
 difficultyPanel.id = 'difficulty-selector'
+
 difficultyPanel.innerHTML = `
   <div class="difficulty-header">
     <strong>Dificuldade</strong>
-    <span id="difficulty-description">${difficultyDescriptions[currentDifficulty]}</span>
+
+    <span id="difficulty-description">
+      ${difficultyDescriptions[currentDifficulty]}
+    </span>
   </div>
+
   <div class="difficulty-buttons">
-    ${Object.entries(difficultyNames).map(([key, name]) => `
-      <button type="button" class="difficulty-button" data-difficulty="${key}">
-        ${name}
-      </button>
-    `).join('')}
+    ${Object.entries(difficultyNames)
+      .map(
+        ([key, name]) => `
+          <button
+            type="button"
+            class="difficulty-button"
+            data-difficulty="${key}"
+          >
+            ${name}
+          </button>
+        `
+      )
+      .join('')}
   </div>
 `
-document.body.insertBefore(difficultyPanel, document.body.firstChild)
+
+document.body.insertBefore(
+  difficultyPanel,
+  document.body.firstChild
+)
 
 const difficultyStyle = document.createElement('style')
+
 difficultyStyle.textContent = `
   #difficulty-selector {
     width: min(100% - 32px, 1100px);
@@ -96,7 +118,7 @@ difficultyStyle.textContent = `
 
   #difficulty-selector .difficulty-buttons {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 8px;
   }
 
@@ -110,7 +132,10 @@ difficultyStyle.textContent = `
     cursor: pointer;
     font: inherit;
     font-weight: 700;
-    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    transition:
+      transform .15s ease,
+      background .15s ease,
+      border-color .15s ease;
   }
 
   #difficulty-selector .difficulty-button:hover:not(:disabled) {
@@ -124,12 +149,37 @@ difficultyStyle.textContent = `
     border-color: rgba(255,255,255,.55);
   }
 
+  #difficulty-selector
+  .difficulty-button[data-difficulty="desconhecido"] {
+    border-color: rgba(255, 70, 70, .35);
+    background: rgba(80, 15, 15, .20);
+  }
+
+  #difficulty-selector
+  .difficulty-button[data-difficulty="desconhecido"]:hover:not(:disabled) {
+    background: rgba(120, 20, 20, .35);
+    border-color: rgba(255, 80, 80, .65);
+  }
+
+  #difficulty-selector
+  .difficulty-button[data-difficulty="desconhecido"].active {
+    background: rgba(140, 20, 20, .38);
+    border-color: rgba(255, 90, 90, .85);
+    box-shadow: 0 0 18px rgba(255, 40, 40, .12);
+  }
+
   #difficulty-selector .difficulty-button:disabled {
     opacity: .55;
     cursor: not-allowed;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 850px) {
+    #difficulty-selector .difficulty-buttons {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
     #difficulty-selector .difficulty-buttons {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -145,31 +195,42 @@ difficultyStyle.textContent = `
     }
   }
 `
+
 document.head.appendChild(difficultyStyle)
 
 const difficultyButtons = Array.from(
   difficultyPanel.querySelectorAll('[data-difficulty]')
 )
-const difficultyDescription = difficultyPanel.querySelector('#difficulty-description')
 
-const getFormattedNumber = i => i.toString().padStart(2, 0)
+const difficultyDescription =
+  difficultyPanel.querySelector('#difficulty-description')
+
+const getFormattedNumber = i =>
+  i.toString().padStart(2, 0)
 
 const updateDifficultyButtons = locked => {
   difficultyButtons.forEach(button => {
-    const selected = button.dataset.difficulty === currentDifficulty
+    const selected =
+      button.dataset.difficulty === currentDifficulty
+
     button.classList.toggle('active', selected)
     button.disabled = locked
   })
 
-  difficultyDescription.textContent = difficultyDescriptions[currentDifficulty]
+  difficultyDescription.textContent =
+    difficultyDescriptions[currentDifficulty]
 }
 
 const buildLevels = () => {
   const levelItems = puzzles
-    .map((p, i) => `<li data-level="${i}">
-      ${i === 0 ? 'Intro' : `Level ${i}`}
-      <i class="timeResult"></i>
-    </li>`)
+    .map(
+      (p, i) => `
+        <li data-level="${i}">
+          ${i === 0 ? 'Intro' : `Level ${i}`}
+          <i class="timeResult"></i>
+        </li>
+      `
+    )
     .join(' ')
 
   levelContainer.innerHTML = levelItems
@@ -178,48 +239,75 @@ const buildLevels = () => {
 const resetTimer = () => {
   timer.stop()
   timer.reset()
+
   timebox.innerHTML = '00:00:0'
-  timebox.classList.remove('done', 'success')
+
+  timebox.classList.remove(
+    'done',
+    'success'
+  )
+
   timebox.removeAttribute('data-before')
 }
 
 const resetHints = () => {
   clearTimeout(hintTimeout1)
   clearTimeout(hintTimeout2)
+
   hintLink1.classList.remove('fade-in')
   hintLink2.classList.remove('fade-in')
 }
 
 const startDifficulty = difficulty => {
-  if (!puzzleSets[difficulty]) return
+  if (!puzzleSets[difficulty]) {
+    return
+  }
 
   currentDifficulty = difficulty
+
   puzzles = puzzleSets[difficulty]
+
   levelIndex = 0
   finalResult = ''
   isLevelSuccess = false
+
   results.length = 0
 
   resetTimer()
   resetHints()
 
   cssInput.value = ''
+
   cssInput.removeAttribute('disabled')
-  cssInput.classList.remove('error', 'success')
+  cssInput.classList.remove(
+    'error',
+    'success'
+  )
+
   submitButton.removeAttribute('disabled')
+
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
+
   timebox.classList.remove('done')
 
-  if (resultScreen) resultScreen.classList.add('hidden')
-  if (codeScreen) codeScreen.classList.remove('hidden')
+  if (resultScreen) {
+    resultScreen.classList.add('hidden')
+  }
+
+  if (codeScreen) {
+    codeScreen.classList.remove('hidden')
+  }
 
   buildLevels()
   updateDifficultyButtons(false)
+
   initLevel()
 }
 
-const lockDifficulty = () => updateDifficultyButtons(true)
+const lockDifficulty = () => {
+  updateDifficultyButtons(true)
+}
 
 const levelSuccess = () => {
   solutionCode.innerHTML = Prism.highlight(
@@ -229,10 +317,18 @@ const levelSuccess = () => {
   )
 
   levelIndex++
+
   isLevelSuccess = true
+
   timer.pause()
 
-  results.push(Object.assign({}, timer.getTimeValues()))
+  results.push(
+    Object.assign(
+      {},
+      timer.getTimeValues()
+    )
+  )
+
   solution.classList.remove('hidden')
   cssInput.classList.add('success')
 
@@ -244,14 +340,17 @@ const levelSuccess = () => {
   }
 
   if (levelIndex === puzzles.length) {
-    finalResult = timer.getTimeValues().toString([
-      'minutes',
-      'seconds',
-      'secondTenths',
-    ])
+    finalResult =
+      timer.getTimeValues().toString([
+        'minutes',
+        'seconds',
+        'secondTenths',
+      ])
 
     timer.stop()
+
     jsConfetti.addConfetti()
+
     jsConfetti.addConfetti({
       emojis: ['🌈', '✨', '🦄'],
       emojiSize: 50,
@@ -259,15 +358,30 @@ const levelSuccess = () => {
     })
 
     timebox.classList.add('done')
-    submitButton.setAttribute('disabled', true)
-    cssInput.setAttribute('disabled', true)
+
+    submitButton.setAttribute(
+      'disabled',
+      true
+    )
+
+    cssInput.setAttribute(
+      'disabled',
+      true
+    )
 
     generateWinScreen()
+
     return
   }
 
-  for (const level of document.querySelectorAll('#levels > li')) {
-    const levelNumber = parseInt(level.getAttribute('data-level'))
+  for (
+    const level of
+    document.querySelectorAll('#levels > li')
+  ) {
+    const levelNumber =
+      parseInt(
+        level.getAttribute('data-level')
+      )
 
     if (levelNumber === levelIndex) {
       level.classList.add('active')
@@ -284,41 +398,68 @@ const levelSuccess = () => {
           secondTenths: 0,
         }
 
-      const newResult = results[levelNumber]
+      const newResult =
+        results[levelNumber]
 
-      if (!newResult) continue
+      if (!newResult) {
+        continue
+      }
 
       const difference =
         newResult.secondTenths -
         prevResult.secondTenths +
-        (newResult.seconds - prevResult.seconds) * 10 +
-        (newResult.minutes - prevResult.minutes) * 600
+        (newResult.seconds -
+          prevResult.seconds) *
+          10 +
+        (newResult.minutes -
+          prevResult.minutes) *
+          600
 
-      const minutes = parseInt(difference / 600)
-      const seconds = parseInt((difference - minutes * 600) / 10)
-      const secondTenths = parseInt(
-        difference - minutes * 600 - seconds * 10
-      )
+      const minutes =
+        parseInt(difference / 600)
+
+      const seconds =
+        parseInt(
+          (difference -
+            minutes * 600) /
+            10
+        )
+
+      const secondTenths =
+        parseInt(
+          difference -
+            minutes * 600 -
+            seconds * 10
+        )
 
       const resultTime =
         `${getFormattedNumber(minutes)}:` +
         `${getFormattedNumber(seconds)}:${secondTenths}`
 
-      timebox.setAttribute('data-before', resultTime)
+      timebox.setAttribute(
+        'data-before',
+        resultTime
+      )
+
       timebox.classList.add('success')
 
       setTimeout(() => {
         timebox.classList.remove('success')
       }, 1500)
 
-      level.querySelector('.timeResult').innerHTML = `[${resultTime}]`
+      level.querySelector(
+        '.timeResult'
+      ).innerHTML =
+        `[${resultTime}]`
     }
   }
 }
 
 const initLevel = () => {
   isLevelSuccess = false
+
   cssInput.classList.remove('success')
+
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
 
@@ -334,24 +475,34 @@ const initLevel = () => {
     'markup'
   )
 
-  htmlGoal.innerHTML = puzzles[levelIndex].goal.reduce(
-    (acc, curr) => acc + (curr ? '➡️\n' : '\n'),
-    ''
-  )
+  htmlGoal.innerHTML =
+    puzzles[levelIndex].goal.reduce(
+      (acc, curr) =>
+        acc +
+        (curr ? '➡️\n' : '\n'),
+      ''
+    )
 
-  verification.innerHTML = puzzles[levelIndex].verificationCode
+  verification.innerHTML =
+    puzzles[levelIndex].verificationCode
 
   resetHints()
 
   if (puzzles[levelIndex].hint1) {
-    tooltip.innerHTML = puzzles[levelIndex].hint1
+    tooltip.innerHTML =
+      puzzles[levelIndex].hint1
+
     hintTimeout1 = setTimeout(() => {
       hintLink1.classList.add('fade-in')
     }, 10000)
   }
 
   if (puzzles[levelIndex].hint2) {
-    hintLink2.setAttribute('href', puzzles[levelIndex].hint2)
+    hintLink2.setAttribute(
+      'href',
+      puzzles[levelIndex].hint2
+    )
+
     hintTimeout2 = setTimeout(() => {
       hintLink2.classList.add('fade-in')
     }, 20000)
@@ -362,29 +513,47 @@ const initLevel = () => {
 
 const checkLevel = () => {
   const cssValue = cssInput.value
+
   let selectedHtml
 
   try {
-    selectedHtml = verification.querySelectorAll(`div ${cssValue}`)
+    selectedHtml =
+      verification.querySelectorAll(
+        `div ${cssValue}`
+      )
   } catch (e) {
     cssInput.classList.add('error')
     selectedHtml = []
   }
 
-  const selectedRows = Array.from(selectedHtml)
-    .map(elem => parseInt(elem.getAttribute('data-row')))
+  const selectedRows =
+    Array.from(selectedHtml)
+      .map(elem =>
+        parseInt(
+          elem.getAttribute(
+            'data-row'
+          )
+        )
+      )
 
-  const result = puzzles[levelIndex].goal.map(
-    (expectedResult, i) =>
-      selectedRows.includes(i) === expectedResult
-  )
+  const result =
+    puzzles[levelIndex].goal.map(
+      (expectedResult, i) =>
+        selectedRows.includes(i) ===
+        expectedResult
+    )
 
-  const completedLevel = result.every(r => r)
+  const completedLevel =
+    result.every(r => r)
 
   let resultString = ''
   let rowResult
 
-  for (let i = 0; i < puzzles[levelIndex].goal.length; i++) {
+  for (
+    let i = 0;
+    i < puzzles[levelIndex].goal.length;
+    i++
+  ) {
     if (puzzles[levelIndex].goal[i]) {
       rowResult = result[i]
         ? '<li class="correct"></li>'
@@ -398,11 +567,16 @@ const checkLevel = () => {
     resultString += rowResult
   }
 
-  if (!htmlInput.querySelector('.check')) {
-    htmlInput.innerHTML += '<ul class="check"></ul>'
+  if (
+    !htmlInput.querySelector('.check')
+  ) {
+    htmlInput.innerHTML +=
+      '<ul class="check"></ul>'
   }
 
-  htmlInput.querySelector('.check').innerHTML = resultString
+  htmlInput.querySelector(
+    '.check'
+  ).innerHTML = resultString
 
   if (completedLevel) {
     levelSuccess()
@@ -410,7 +584,10 @@ const checkLevel = () => {
 }
 
 const generateWinScreen = () => {
-  const tweetLink = document.querySelector('#share-tweet')
+  const tweetLink =
+    document.querySelector(
+      '#share-tweet'
+    )
 
   const winTweetText =
     `I've solved all #CSS puzzles on CSS Speedrun™ within ${finalResult} ` +
@@ -422,81 +599,134 @@ const generateWinScreen = () => {
       'href',
       `https://twitter.com/intent/tweet?text=${encodeURI(
         winTweetText
-      ).replace('#', '%23')}`
+      ).replace(
+        '#',
+        '%23'
+      )}`
     )
   }
 
   if (resultScreen) {
-    resultScreen.classList.remove('hidden')
+    resultScreen.classList.remove(
+      'hidden'
+    )
   }
 }
 
 difficultyButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    if (button.disabled) return
-    startDifficulty(button.dataset.difficulty)
-  })
+  button.addEventListener(
+    'click',
+    () => {
+      if (button.disabled) {
+        return
+      }
+
+      startDifficulty(
+        button.dataset.difficulty
+      )
+    }
+  )
 })
 
 initLevel()
+
 updateDifficultyButtons(false)
 
-submitButton.addEventListener('click', () => {
-  cssInput.classList.remove('error')
+submitButton.addEventListener(
+  'click',
+  () => {
+    cssInput.classList.remove('error')
 
-  if (isLevelSuccess) {
-    initLevel()
-  } else {
-    checkLevel()
-  }
-})
-
-cssInput.addEventListener('keypress', e => {
-  cssInput.classList.remove('error')
-
-  if (e.keyCode === 13) {
     if (isLevelSuccess) {
       initLevel()
     } else {
       checkLevel()
     }
   }
-})
+)
 
-timer.addEventListener('secondTenthsUpdated', () => {
-  timebox.innerHTML = timer
-    .getTimeValues()
-    .toString(['minutes', 'seconds', 'secondTenths'])
-})
+cssInput.addEventListener(
+  'keypress',
+  e => {
+    cssInput.classList.remove('error')
 
-const popperInstance = createPopper(hintLink1, tooltip, {
-  placement: 'bottom-end',
-  modifiers: [
-    {
-      name: 'offset',
-      options: {
-        offset: [0, 8],
+    if (e.keyCode === 13) {
+      if (isLevelSuccess) {
+        initLevel()
+      } else {
+        checkLevel()
+      }
+    }
+  }
+)
+
+timer.addEventListener(
+  'secondTenthsUpdated',
+  () => {
+    timebox.innerHTML =
+      timer
+        .getTimeValues()
+        .toString([
+          'minutes',
+          'seconds',
+          'secondTenths',
+        ])
+  }
+)
+
+const popperInstance = createPopper(
+  hintLink1,
+  tooltip,
+  {
+    placement: 'bottom-end',
+
+    modifiers: [
+      {
+        name: 'offset',
+
+        options: {
+          offset: [0, 8],
+        },
       },
-    },
-  ],
-})
+    ],
+  }
+)
 
 function show() {
-  tooltip.setAttribute('data-show', '')
+  tooltip.setAttribute(
+    'data-show',
+    ''
+  )
+
   popperInstance.update()
 }
 
 function hide() {
-  tooltip.removeAttribute('data-show')
+  tooltip.removeAttribute(
+    'data-show'
+  )
 }
 
-const showEvents = ['mouseenter', 'focus']
-const hideEvents = ['mouseleave', 'blur']
+const showEvents = [
+  'mouseenter',
+  'focus',
+]
+
+const hideEvents = [
+  'mouseleave',
+  'blur',
+]
 
 showEvents.forEach(event => {
-  hintLink1.addEventListener(event, show)
+  hintLink1.addEventListener(
+    event,
+    show
+  )
 })
 
 hideEvents.forEach(event => {
-  hintLink1.addEventListener(event, hide)
+  hintLink1.addEventListener(
+    event,
+    hide
+  )
 })
