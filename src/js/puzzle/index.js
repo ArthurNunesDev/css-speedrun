@@ -1,14 +1,17 @@
-import level0 from './level0.js'
-import level1 from './level1.js'
-import level2 from './level2.js'
-import level3 from './level3.js'
-import level4 from './level4.js'
-import level5 from './level5.js'
-import level6 from './level6.js'
-import level7 from './level7.js'
-import level8 from './level8.js'
-import level9 from './level9.js'
-import level10 from './level10.js'
+import easy0 from './easy/level0.js'
+import easy1 from './easy/level1.js'
+
+import medium0 from './medium/level0.js'
+import medium1 from './medium/level1.js'
+
+import hard0 from './hard/level0.js'
+import hard1 from './hard/level1.js'
+
+import nightmare0 from './nightmare/level0.js'
+import nightmare1 from './nightmare/level1.js'
+
+import unknown0 from './unknown/level0.js'
+import unknown1 from './unknown/level1.js'
 
 const originalPuzzles = [
   level0,
