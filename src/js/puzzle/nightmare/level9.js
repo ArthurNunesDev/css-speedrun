@@ -3,7 +3,7 @@ const code = `<div class="board">
     <article class="card alpha disabled" data-state="locked"><div class="content"><span class="item"></span><span class="item special"></span></div></article>
     <article class="card target beta" data-state="ready"><div class="content"><span class="item"></span><span class="item special"></span></div></article>
     <article class="card target" data-state="ready"><div class="content"><span class="item"></span><span class="item special"></span><span class="item decoy"></span></div></article>
-    <article class="card target" data-state="ready"><div class="content"><span class="item"></span><span class="item special"></span></div></article>
+    <article class="card target" data-state="ready"><div class="content"><span class="item"></span><span class="item"></span></div></article>
   </section>
 </div>`
 

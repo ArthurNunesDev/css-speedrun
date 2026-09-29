@@ -16,5 +16,5 @@ export default {
 
   hint2: "Combine posi\u00e7\u00e3o externa e interna.",
 
-  solution: ".arena > .card:nth-child(3):not(.disabled):has(> .content > .item.special:nth-child(2)):not(:has(> .content > .item.decoy))",
+  solution: ".arena > .card:nth-child(2):not(.disabled):has(> .content > .item.special:nth-child(2)):not(:has(> .content > .item.decoy))",
 }

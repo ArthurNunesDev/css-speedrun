@@ -11,9 +11,9 @@ export default {
 
   goal: [false, false, false, true, false, false, false],
 
-  hint1: "O alvo est\u00e1 dentro de uma row.",
+  hint1: "Selecione a segunda row.",
 
-  hint2: "Use o combinador de filho.",
+  hint2: "Use o combinador de filho e :nth-child(2).",
 
-  solution: ".arena > .row > .target",
+  solution: ".arena > .row:nth-child(2)",
 }

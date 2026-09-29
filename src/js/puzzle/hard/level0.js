@@ -1,7 +1,7 @@
 const code = `<div class="board">
   <section class="arena">
     <article class="card"><span class="target"></span></article>
-    <article class="card"><span class="target"></span></article>
+    <article class="card disabled"><span class="target"></span></article>
     <article class="card"><span class="item"></span></article>
   </section>
 </div>`

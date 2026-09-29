@@ -9,7 +9,7 @@ const code = `<div class="board">
 export default {
   code,
 
-  goal: [false, false, true, false, false, false, false],
+  goal: [false, false, true, false, true, false, false],
 
   hint1: "Selecione a posi\u00e7\u00e3o \u00edmpar desejada.",
 

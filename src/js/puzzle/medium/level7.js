@@ -1,8 +1,8 @@
 const code = `<div class="board">
   <section class="arena">
-    <article class="card" data-role="target"></article>
-    <article class="card" data-role="get"></article>
     <article class="card" data-role="normal"></article>
+    <article class="card" data-role="target"></article>
+    <article class="card" data-role="targeted"></article>
   </section>
 </div>`
 

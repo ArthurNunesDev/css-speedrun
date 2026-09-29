@@ -1,6 +1,6 @@
 const code = `<div class="board">
   <section class="arena">
-    <article class="card alpha disabled" data-state="locked"><div class="content"><span class="item"></span><span class="item special"></span></div></article>
+    <article class="card alpha disabled" data-state="locked"><div class="content"><span class="item"></span><span class="item special"></span><span class="blocked"></span></div></article>
     <article class="card beta"><div class="content"><span class="item special"></span></div></article>
     <article class="card target"><div class="content"><span class="item special"></span><span class="blocked"></span></div></article>
     <article class="card target" data-state="ready"><div class="content"><span class="item"></span><span class="item special"></span></div></article>

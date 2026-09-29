@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "css:autoprefixer": "postcss -u autoprefixer -r dist/*.css",
-    "css:scss": "node-sass --output-style compressed -o dist src/scss",
-    "build:assets": "copyfiles src/assets/* dist/assets --flat",
+    "css:scss": "sass --style=compressed --no-source-map src/scss:dist",
+    "build:assets": "copyfiles -f \"src/assets/*\" dist/assets",
     "build:css": "npm run css:scss && npm run css:autoprefixer",
-    "build:html": "copyfiles src/views/*.html dist --flat",
+    "build:html": "copyfiles -f \"src/views/*.html\" dist",
     "build:js": "webpack --mode=production",
     "build": "run-s build:*",
-    "serve": "browser-sync start --server \"dist\" --files \"dist\"",
+    "serve": "browser-sync start --server dist --files dist",
     "watch:assets": "onchange \"src/assets\" -- npm run build:assets",
     "watch:css": "onchange \"src/scss\" -- npm run build:css",
     "watch:html": "onchange \"src/views\" -- npm run build:html",
     "watch:js": "onchange \"src/js\" -- webpack --mode=development",
-    "watch": "run-p serve watch:*"
+    "watch": "run-p serve watch:*",
+    "start": "npm run build && npm run watch"
   },
   "repository": {
     "type": "git",
@@ -34,14 +35,13 @@
     "babel-loader": "^8.2.2",
     "browser-sync": "^2.27.5",
     "copyfiles": "^2.4.1",
-    "imagemin-cli": "^7.0.0",
-    "node-sass": "^7.0.1",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "webpack": "^5.58.1",
-    "webpack-cli": "^4.9.0"
+    "webpack-cli": "^4.9.0",
+    "sass": "^1.77.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.2",

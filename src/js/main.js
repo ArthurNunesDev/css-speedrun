@@ -2,7 +2,7 @@ import Prism from 'prismjs'
 import Timer from 'easytimer.js'
 import JSConfetti from 'js-confetti'
 import { createPopper } from '@popperjs/core'
-import puzzleSets from './puzzles'
+import puzzleSets from './puzzle'
 
 const jsConfetti = new JSConfetti()
 const timer = new Timer({ precision: 'secondTenths' })

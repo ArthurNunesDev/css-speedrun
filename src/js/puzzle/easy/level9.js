@@ -11,9 +11,9 @@ export default {
 
   goal: [false, false, false, true, false, false, false],
 
-  hint1: "Selecione o item dentro do card target.",
+  hint1: "Selecione o article que tem a classe target.",
 
-  hint2: "Combine dois n\u00edveis de filho.",
+  hint2: "Use tag + classe: article.target.",
 
-  solution: ".arena > .card.target > .item",
+  solution: ".arena > article.target",
 }

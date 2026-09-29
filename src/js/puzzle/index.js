@@ -53,130 +53,28 @@ import unknown7 from './unknown/level7.js'
 import unknown8 from './unknown/level8.js'
 import unknown9 from './unknown/level9.js'
 
+// Adiciona data-row na primeira tag de cada linha, usado para verificar a resposta
 const addVerificationCode = puzzle => {
-if (puzzle.verificationCode) {
-return puzzle
+  if (puzzle.verificationCode) return puzzle
+
+  return {
+    ...puzzle,
+    verificationCode: puzzle.code
+      .split('\n')
+      .map((row, i) => row.replace('>', ` data-row="${i}">`))
+      .join(' '),
+  }
 }
 
-return {
-...puzzle,
-
-```
-verificationCode: puzzle.code
-  .split('\n')
-  .map((row, i) =>
-    row.replace('>', ` data-row="${i}">`)
-  )
-  .join(' '),
-```
-
-}
+// 10 níveis por dificuldade
+const levels = {
+  facil: [easy0, easy1, easy2, easy3, easy4, easy5, easy6, easy7, easy8, easy9],
+  medio: [medium0, medium1, medium2, medium3, medium4, medium5, medium6, medium7, medium8, medium9],
+  dificil: [hard0, hard1, hard2, hard3, hard4, hard5, hard6, hard7, hard8, hard9],
+  insano: [nightmare0, nightmare1, nightmare2, nightmare3, nightmare4, nightmare5, nightmare6, nightmare7, nightmare8, nightmare9],
+  desconhecido: [unknown0, unknown1, unknown2, unknown3, unknown4, unknown5, unknown6, unknown7, unknown8, unknown9],
 }
 
-/*
-
-* FÁCIL
-*
-* 10 níveis separados.
-  */
-  const facil = [
-  easy0,
-  easy1,
-  easy2,
-  easy3,
-  easy4,
-  easy5,
-  easy6,
-  easy7,
-  easy8,
-  easy9,
-  ]
-
-/*
-
-* MÉDIO
-*
-* 10 níveis separados.
-  */
-  const medio = [
-  medium0,
-  medium1,
-  medium2,
-  medium3,
-  medium4,
-  medium5,
-  medium6,
-  medium7,
-  medium8,
-  medium9,
-  ]
-
-/*
-
-* DIFÍCIL
-*
-* 10 níveis separados.
-  */
-  const dificil = [
-  hard0,
-  hard1,
-  hard2,
-  hard3,
-  hard4,
-  hard5,
-  hard6,
-  hard7,
-  hard8,
-  hard9,
-  ]
-
-/*
-
-* INSANO
-*
-* 10 níveis separados.
-  */
-  const insano = [
-  nightmare0,
-  nightmare1,
-  nightmare2,
-  nightmare3,
-  nightmare4,
-  nightmare5,
-  nightmare6,
-  nightmare7,
-  nightmare8,
-  nightmare9,
-  ]
-
-/*
-
-* ???
-*
-* 10 níveis separados.
-  */
-  const desconhecido = [
-  unknown0,
-  unknown1,
-  unknown2,
-  unknown3,
-  unknown4,
-  unknown5,
-  unknown6,
-  unknown7,
-  unknown8,
-  unknown9,
-  ]
-
-
-  export default {
-  facil: facil.map(addVerificationCode),
-
-medio: medio.map(addVerificationCode),
-
-dificil: dificil.map(addVerificationCode),
-
-insano: insano.map(addVerificationCode),
-
-desconhecido: desconhecido.map(addVerificationCode),
-}
+export default Object.fromEntries(
+  Object.entries(levels).map(([k, list]) => [k, list.map(addVerificationCode)])
+)

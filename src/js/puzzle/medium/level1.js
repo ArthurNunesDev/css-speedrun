@@ -11,9 +11,9 @@ export default {
 
   goal: [false, false, false, true, false, false, false],
 
-  hint1: "Segundo item da segunda row.",
+  hint1: "A segunda row, que tem um segundo item.",
 
-  hint2: "Use :nth-child() em dois n\u00edveis.",
+  hint2: "Use :nth-child() e :has().",
 
-  solution: ".arena > .row:nth-child(2) > .item:nth-child(2)",
+  solution: ".arena > .row:nth-child(2):has(> .item:nth-child(2))",
 }
