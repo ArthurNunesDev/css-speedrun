@@ -1,0 +1,59 @@
+// Paleta de cores por dificuldade: (cor principal, cor secundária)
+$themes: (
+  facil: (#10b981, #06b6d4),
+  medio: (#3b82f6, #8b5cf6),
+  dificil: #f59e0b, #ef4444),
+  insano: (#ef4444, #ec4899),
+  desconhecido: (#a855f7, #d946ef),
+);
+
+:root {
+  color-scheme: dark;
+
+  // Backgrounds
+  --bg: #0f172a;
+  --bg-2: #1e293b;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-2: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-2: rgba(255, 255, 255, 0.12);
+  
+  // Text
+  --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  // Semantics
+  --ok: #10b981;
+  --bad: #ef4444;
+  --warning: #f59e0b;
+  
+  // Layout
+  --radius: 16px;
+  --radius-lg: 20px;
+  
+  // Typography
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  // Dynamic theme colors
+  --accent: #10b981;
+  --accent-2: #06b6d4;
+  --accent-light: rgba(16, 185, 129, 0.1);
+  --accent-glow: rgba(16, 185, 129, 0.2);
+}
+
+@each $name, $colors in $themes {
+  :root[data-difficulty='#{$name}'] {
+    --accent: #{nth($colors, 1)};
+    --accent-2: #{nth($colors, 2)};
+    --accent-light: #{rgba(nth($colors, 1), 0.1)};
+    --accent-glow: #{rgba(nth($colors, 1), 0.2)};
+  }
+
+  .difficulty-button[data-difficulty='#{$name}'] {
+    --c: #{nth($colors, 1)};
+    --c2: #{nth($colors, 2)};
+  }
+}
