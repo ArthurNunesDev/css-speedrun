@@ -2,7 +2,7 @@
 
 A small fun app to test your CSS knowledge. Find the correct CSS selectors for the 10 puzzles as fast as possible.
 
-[https://css-speedrun.netlify.app](https://css-speedrun.netlify.app)
+[https://css-speedrun.netlify.app](https://inspiring-bombolone-599e54.netlify.app/)
 
 ## Setup
 
