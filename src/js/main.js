@@ -49,7 +49,7 @@ const difficultyDescriptions = {
   desconhecido: '❓ 10× além de Nightmare',
 }
 
-const difficultyPanel = document.createElement('section')
+const difficultyPanel = document.createElement('div')
 
 difficultyPanel.id = 'difficulty-selector'
 
@@ -79,124 +79,10 @@ difficultyPanel.innerHTML = `
   </div>
 `
 
-document.body.insertBefore(
+document.querySelector('main').insertBefore(
   difficultyPanel,
-  document.body.firstChild
+  document.querySelector('main > section')
 )
-
-const difficultyStyle = document.createElement('style')
-
-difficultyStyle.textContent = `
-  #difficulty-selector {
-    width: min(100% - 32px, 1100px);
-    margin: 18px auto 10px;
-    padding: 14px 16px;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 12px;
-    background: rgba(20,20,24,.92);
-    box-sizing: border-box;
-    font-family: inherit;
-  }
-
-  #difficulty-selector .difficulty-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 10px;
-  }
-
-  #difficulty-selector .difficulty-header strong {
-    font-size: 15px;
-  }
-
-  #difficulty-description {
-    opacity: .65;
-    font-size: 13px;
-    text-align: right;
-  }
-
-  #difficulty-selector .difficulty-buttons {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  #difficulty-selector .difficulty-button {
-    appearance: none;
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 9px;
-    padding: 10px 12px;
-    color: inherit;
-    background: rgba(255,255,255,.05);
-    cursor: pointer;
-    font: inherit;
-    font-weight: 700;
-    transition:
-      transform .15s ease,
-      background .15s ease,
-      border-color .15s ease;
-  }
-
-  #difficulty-selector .difficulty-button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: rgba(255,255,255,.10);
-    border-color: rgba(255,255,255,.28);
-  }
-
-  #difficulty-selector .difficulty-button.active {
-    background: rgba(255,255,255,.14);
-    border-color: rgba(255,255,255,.55);
-  }
-
-  #difficulty-selector
-  .difficulty-button[data-difficulty="desconhecido"] {
-    border-color: rgba(255, 70, 70, .35);
-    background: rgba(80, 15, 15, .20);
-  }
-
-  #difficulty-selector
-  .difficulty-button[data-difficulty="desconhecido"]:hover:not(:disabled) {
-    background: rgba(120, 20, 20, .35);
-    border-color: rgba(255, 80, 80, .65);
-  }
-
-  #difficulty-selector
-  .difficulty-button[data-difficulty="desconhecido"].active {
-    background: rgba(140, 20, 20, .38);
-    border-color: rgba(255, 90, 90, .85);
-    box-shadow: 0 0 18px rgba(255, 40, 40, .12);
-  }
-
-  #difficulty-selector .difficulty-button:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-  }
-
-  @media (max-width: 850px) {
-    #difficulty-selector .difficulty-buttons {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 600px) {
-    #difficulty-selector .difficulty-buttons {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    #difficulty-selector .difficulty-header {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    #difficulty-description {
-      text-align: left;
-    }
-  }
-`
-
-document.head.appendChild(difficultyStyle)
 
 const difficultyButtons = Array.from(
   difficultyPanel.querySelectorAll('[data-difficulty]')
