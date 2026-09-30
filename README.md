@@ -1,9 +1,8 @@
 # ⚡ CSS Speedrun
 
-
 > Um jogo interativo para praticar CSS através de desafios progressivos, velocidade, precisão e competição ranqueada.
 
-[**CSS Speedrun**](https://inspiring-bombolone-599e54.netlify.app/) é um projeto que transforma o aprendizado de CSS em uma experiência próxima de um jogo de speedrun.
+**CSS Speedrun** é um projeto que transforma o aprendizado de CSS em uma experiência próxima de um jogo de speedrun.
 
 A proposta é simples:
 
@@ -42,13 +41,13 @@ A ideia é que o jogador consiga perceber sua evolução conforme passa por difi
 
 Os desafios serão separados por níveis de dificuldade.
 
-| Dificuldade      | Descrição                                 |
-| ---------------- | ----------------------------------------- |
-| 🟢 **Easy**      | Fundamentos e seletores simples           |
-| 🟡 **Medium**    | Combinações e estruturas intermediárias   |
-| 🔴 **Hard**      | Seletores e relações mais complexas       |
+| Dificuldade | Descrição |
+|---|---|
+| 🟢 **Easy** | Fundamentos e seletores simples |
+| 🟡 **Medium** | Combinações e estruturas intermediárias |
+| 🔴 **Hard** | Seletores e relações mais complexas |
 | ☠️ **Nightmare** | Desafios avançados e combinações difíceis |
-| ❓ **???**       | Desafios extremos e especiais             |
+| ❓ **???** | Desafios extremos e especiais |
 
 ## ❓ Dificuldade ???
 
@@ -689,7 +688,7 @@ O projeto utiliza principalmente:
 Clone o repositório:
 
 ```bash
-git clone https://nome-pasta/nome-pasta/css-speedrun.git
+git clone https://github.com/ArthurNunesDev/css-speedrun.git
 ```
 
 Entre na pasta:
