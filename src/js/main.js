@@ -49,7 +49,12 @@ const loadRankings = () => {
 }
 
 const saveRankings = rankings => {
-  localStorage.setItem(RANKING_STORAGE_KEY, JSON.stringify(rankings))
+  try {
+    localStorage.setItem(RANKING_STORAGE_KEY, JSON.stringify(rankings))
+    return true
+  } catch {
+    return false
+  }
 }
 
 const timeToTenths = time => (
@@ -773,7 +778,7 @@ const generateWinScreen = () => {
       rankingUI.resultInfo.innerHTML = `
         <div class="ranked-result-main">
           <span>🏆 Sua posição</span>
-          <strong>#${rankedResult.position}</strong>
+          <strong>${rankedResult.position > 0 ? `#${rankedResult.position}` : 'Fora do Top 10'}</strong>
         </div>
         <div class="ranked-result-details">
           <span>Melhor tempo</span>
