@@ -7,8 +7,8 @@ import puzzleSets from './puzzle'
 const jsConfetti = new JSConfetti()
 const timer = new Timer({ precision: 'secondTenths' })
 
-let puzzles = puzzleSets.facil
-let currentDifficulty = 'facil'
+let puzzles = []
+let currentDifficulty = null
 let levelIndex = 0
 let finalResult = ''
 let isLevelSuccess = false
@@ -400,7 +400,9 @@ const updateDifficultyButtons = locked => {
   })
 
   difficultyDescription.textContent =
-    difficultyDescriptions[currentDifficulty]
+    currentDifficulty
+      ? difficultyDescriptions[currentDifficulty]
+      : 'Escolha uma dificuldade para começar.'
 }
 
 const buildLevels = () => {
@@ -964,8 +966,6 @@ difficultyButtons.forEach(button => {
     }
   )
 })
-
-initLevel()
 
 updateDifficultyButtons(false)
 
