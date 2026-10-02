@@ -838,7 +838,11 @@ const checkLevel = () => {
       )
   } catch (e) {
     cssInput.classList.add('error')
-    selectedHtml = []
+    selectorFeedback?.classList.add('invalid')
+    if (selectionCount) {
+      selectionCount.textContent = 'Seletor CSS inválido. Verifique a sintaxe.'
+    }
+    return
   }
 
   const selectedRows =
@@ -851,8 +855,14 @@ const checkLevel = () => {
         )
       )
 
+  const goals = puzzles[levelIndex].goal
+  const targetCount = goals.filter(Boolean).length
+  const selectedTargetCount = selectedRows.filter(row => goals[row]).length
+  const wrongCount = selectedRows.filter(row => !goals[row]).length
+  const missingCount = targetCount - selectedTargetCount
+
   const result =
-    puzzles[levelIndex].goal.map(
+    goals.map(
       (expectedResult, i) =>
         selectedRows.includes(i) ===
         expectedResult
@@ -860,6 +870,26 @@ const checkLevel = () => {
 
   const completedLevel =
     result.every(r => r)
+
+  if (!completedLevel && selectionCount) {
+    const details = []
+
+    if (missingCount) {
+      details.push(`${missingCount} alvo${missingCount === 1 ? '' : 's'} faltando`)
+    }
+
+    if (wrongCount) {
+      details.push(`${wrongCount} elemento${wrongCount === 1 ? '' : 's'} fora do alvo`)
+    }
+
+    selectionCount.textContent =
+      details.length
+        ? `Quase! ${details.join(' · ')}.`
+        : 'A seleção ainda não corresponde ao alvo.'
+
+    selectorFeedback?.classList.remove('valid', 'target')
+    selectorFeedback?.classList.add('invalid')
+  }
 
   let resultString = ''
   let rowResult
