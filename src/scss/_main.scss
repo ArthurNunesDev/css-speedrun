@@ -30,9 +30,12 @@ details[open] {
 }
 
 main {
-  width: calc(100% - 40px);
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
   box-sizing: border-box;
 }
 
@@ -40,6 +43,7 @@ main section {
   width: 100%;
   min-height: 300px;
   display: flex;
+  align-items: flex-start;
   gap: 20px;
   box-sizing: border-box;
 
@@ -51,8 +55,8 @@ main section {
 .left-column {
   flex: 1 1 0;
   width: auto;
-  margin: 0;
   min-width: 0;
+  margin: 0;
 
   @media (max-width: 900px) {
     width: 100%;
@@ -64,8 +68,8 @@ main section {
 .right-column {
   flex: 0 0 26%;
   width: auto;
-  margin: 0;
   min-width: 0;
+  margin: 0;
 
   @media (max-width: 900px) {
     width: 100%;
