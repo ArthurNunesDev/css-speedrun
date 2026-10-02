@@ -137,6 +137,12 @@ const createRankingUI = () => {
 
   difficultyPanel.appendChild(rankingButton)
 
+  const viewRankingButton = document.createElement('button')
+  viewRankingButton.type = 'button'
+  viewRankingButton.className = 'ranking-view-button'
+  viewRankingButton.textContent = 'Ver Ranking'
+  difficultyPanel.appendChild(viewRankingButton)
+
   const modal = document.createElement('div')
   modal.id = 'player-modal'
   modal.className = 'ranking-modal hidden'
@@ -264,6 +270,7 @@ const createRankingUI = () => {
   })
 
   document.querySelector('#ranking-back').addEventListener('click', hideRanking)
+  viewRankingButton.addEventListener('click', () => showRanking(currentDifficulty))
 
   return {
     showRanking,
