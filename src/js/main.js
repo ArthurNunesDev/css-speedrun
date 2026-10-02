@@ -519,10 +519,25 @@ const previewSelector = () => {
     .length
 
   if (selectionCount) {
-    selectionCount.textContent =
-      `${selectedHtml.length} elemento${selectedHtml.length === 1 ? '' : 's'} selecionado` +
-      `${selectedHtml.length === 1 ? '' : 's'} · ${selectedTargetCount}/${targetCount} alvo${targetCount === 1 ? '' : 's'}` +
-      (wrongCount ? ` · ${wrongCount} fora do alvo` : '')
+    if (selectedTargetCount === targetCount && wrongCount === 0) {
+      selectionCount.textContent =
+        `✓ Seleção correta · ${selectedHtml.length} elemento${selectedHtml.length === 1 ? '' : 's'}`
+    } else {
+      const details = []
+
+      if (selectedTargetCount) {
+        details.push(`${selectedTargetCount}/${targetCount} alvo${targetCount === 1 ? '' : 's'}`)
+      } else {
+        details.push('nenhum alvo selecionado')
+      }
+
+      if (wrongCount) {
+        details.push(`${wrongCount} fora do alvo`)
+      }
+
+      selectionCount.textContent =
+        `${selectedHtml.length} elemento${selectedHtml.length === 1 ? '' : 's'} · ${details.join(' · ')}`
+    }
   }
 
   if (selectedTargetCount === targetCount && wrongCount === 0) {
