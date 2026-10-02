@@ -18,6 +18,7 @@ let rankedMode = false
 let rankedPlayer = ''
 let rankedResult = null
 let introCompleted = false
+let timerEnabled = false
 
 const results = []
 
@@ -435,6 +436,7 @@ const startDifficulty = difficulty => {
   results.length = 0
   rankedResult = null
   introCompleted = false
+  timerEnabled = false
 
   resetTimer()
   resetHints()
@@ -830,6 +832,7 @@ submitButton.addEventListener(
 
     if (isLevelSuccess) {
       if (levelIndex >= 1 && introCompleted) {
+        timerEnabled = true
         timer.start()
       }
 
@@ -848,6 +851,7 @@ cssInput.addEventListener(
     if (e.keyCode === 13) {
       if (isLevelSuccess) {
         if (levelIndex >= 1 && introCompleted) {
+          timerEnabled = true
           timer.start()
         }
 
@@ -862,6 +866,13 @@ cssInput.addEventListener(
 timer.addEventListener(
   'secondTenthsUpdated',
   () => {
+    if (!timerEnabled) {
+      timer.stop()
+      timer.reset()
+      timebox.innerHTML = '00:00:0'
+      return
+    }
+
     timebox.innerHTML =
       timer
         .getTimeValues()
