@@ -786,6 +786,23 @@ const initLevel = () => {
     puzzles[levelIndex].code
   )
 
+  const codeLineCount =
+    puzzles[levelIndex].code.split('\n').length
+
+  codeScreen?.classList.remove(
+    'code-screen--compact',
+    'code-screen--long',
+    'code-screen--very-long'
+  )
+
+  if (codeLineCount >= 35) {
+    codeScreen?.classList.add('code-screen--very-long')
+  } else if (codeLineCount >= 20) {
+    codeScreen?.classList.add('code-screen--long')
+  } else if (codeLineCount >= 12) {
+    codeScreen?.classList.add('code-screen--compact')
+  }
+
   const meta = getLevelMeta()
 
   document.title = `CSS Speedrun | ${meta.title}`
