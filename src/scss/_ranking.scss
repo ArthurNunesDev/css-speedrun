@@ -1,0 +1,268 @@
+#ranked-mode-button {
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+
+  &:hover {
+    background: #d4af37;
+    color: #111;
+  }
+}
+
+.ranking-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.ranking-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.ranking-modal-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 420px);
+  padding: 28px;
+  border: 2px solid var(--nc-bg-3, #333);
+  border-radius: 8px;
+  background: var(--nc-bg-2, #111);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    opacity: 0.7;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+
+    &.error {
+      border-color: #B71C1C;
+    }
+  }
+
+  small {
+    display: block;
+    margin-top: 12px;
+    opacity: 0.5;
+  }
+}
+
+.ranking-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 28px;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.ranking-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+
+  button {
+    margin: 0;
+  }
+}
+
+#ranking-screen {
+  width: 100%;
+  min-height: 300px;
+  margin-bottom: 30px;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.ranking-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  strong {
+    font-size: 1.35rem;
+  }
+
+  span {
+    opacity: 0.55;
+  }
+
+  button {
+    margin: 0;
+  }
+}
+
+.ranking-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+
+  button {
+    margin: 0;
+    padding: 8px 10px;
+    border: 2px solid var(--nc-bg-3, #222);
+    background: transparent;
+    color: inherit;
+    font-weight: 600;
+
+    &.active {
+      background: var(--nc-lk-1, #3291ff);
+      border-color: var(--nc-lk-1, #3291ff);
+      color: var(--nc-lk-tx, #fff);
+    }
+  }
+}
+
+.ranking-list {
+  border: 2px solid var(--nc-bg-3, #222);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 100px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--nc-bg-3, #222);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .ranking-position {
+    font-weight: 800;
+    opacity: 0.65;
+  }
+
+  > span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &.current-player {
+    background: rgba(212, 175, 55, 0.12);
+  }
+}
+
+.ranking-empty {
+  padding: 24px;
+  margin: 0;
+  text-align: center;
+  opacity: 0.55;
+}
+
+.ranked-result {
+  margin-top: 20px;
+  padding: 16px;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.08);
+
+  &.hidden {
+    display: none;
+  }
+
+  .ranked-result-main,
+  .ranked-result-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .ranked-result-main {
+    margin-bottom: 8px;
+
+    strong {
+      font-size: 1.5rem;
+    }
+  }
+
+  .ranked-result-details {
+    opacity: 0.8;
+  }
+
+  p {
+    margin: 10px 0;
+    opacity: 0.7;
+  }
+
+  button {
+    margin: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .ranking-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ranking-heading {
+    align-items: stretch;
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .ranking-modal-card {
+    padding: 22px 18px;
+  }
+
+  .ranking-row {
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+
+    > span:last-child {
+      grid-column: 2;
+      text-align: left;
+      opacity: 0.7;
+    }
+  }
+
+  .ranking-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  #ranked-mode-button {
+    font-size: 0.95rem;
+  }
+}
