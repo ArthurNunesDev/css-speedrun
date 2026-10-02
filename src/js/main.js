@@ -19,6 +19,7 @@ let rankedPlayer = ''
 let rankedResult = null
 let introCompleted = false
 let timerEnabled = false
+let attempts = 0
 
 const results = []
 
@@ -35,6 +36,10 @@ const solution = document.querySelector('#solution')
 const solutionCode = document.querySelector('#solution-code')
 const nextLevel = document.querySelector('#next-level')
 const tooltip = document.querySelector('#tooltip')
+const clearSelectorButton = document.querySelector('#clear-selector')
+const selectorFeedback = document.querySelector('#selector-feedback')
+const selectionCount = document.querySelector('#selection-count')
+const attemptsElement = document.querySelector('#attempts strong')
 const resultScreen = document.querySelector('#result-screen')
 const codeScreen = document.querySelector('#code-screen')
 const gameSection = document.querySelector('main > section')
@@ -410,6 +415,84 @@ const resetTimer = () => {
   timebox.removeAttribute('data-before')
 }
 
+const resetAttempts = () => {
+  attempts = 0
+  if (attemptsElement) {
+    attemptsElement.textContent = '0'
+  }
+}
+
+const clearSelectionPreview = () => {
+  verification.querySelectorAll('[data-selector-preview]').forEach(element => {
+    element.removeAttribute('data-selector-preview')
+    element.removeAttribute('data-selector-match')
+  })
+
+  htmlInput.querySelectorAll('.selector-preview').forEach(element => {
+    element.classList.remove('selector-preview')
+  })
+
+  if (selectionCount) {
+    selectionCount.textContent = 'Digite um seletor para testar.'
+  }
+
+  selectorFeedback?.classList.remove('valid', 'invalid', 'target')
+}
+
+const previewSelector = () => {
+  clearSelectionPreview()
+
+  const value = cssInput.value.trim()
+
+  if (!value) {
+    return
+  }
+
+  let selectedHtml
+
+  try {
+    selectedHtml = verification.querySelectorAll(`div ${value}`)
+  } catch {
+    if (selectionCount) {
+      selectionCount.textContent = 'Seletor CSS inválido.'
+    }
+    selectorFeedback?.classList.add('invalid')
+    return
+  }
+
+  const selectedRows = new Set(
+    Array.from(selectedHtml).map(element =>
+      Number(element.getAttribute('data-row'))
+    )
+  )
+
+  selectedHtml.forEach(element => {
+    element.setAttribute('data-selector-preview', '')
+  })
+
+  const goals = puzzles[levelIndex].goal
+  const targetCount = goals.filter(Boolean).length
+  const selectedTargetCount = Array.from(selectedRows)
+    .filter(row => goals[row])
+    .length
+  const wrongCount = Array.from(selectedRows)
+    .filter(row => !goals[row])
+    .length
+
+  if (selectionCount) {
+    selectionCount.textContent =
+      `${selectedHtml.length} elemento${selectedHtml.length === 1 ? '' : 's'} selecionado` +
+      `${selectedHtml.length === 1 ? '' : 's'} · ${selectedTargetCount}/${targetCount} alvo${targetCount === 1 ? '' : 's'}` +
+      (wrongCount ? ` · ${wrongCount} fora do alvo` : '')
+  }
+
+  if (selectedTargetCount === targetCount && wrongCount === 0) {
+    selectorFeedback?.classList.add('valid', 'target')
+  } else {
+    selectorFeedback?.classList.add('invalid')
+  }
+}
+
 const resetHints = () => {
   clearTimeout(hintTimeout1)
   clearTimeout(hintTimeout2)
@@ -442,6 +525,8 @@ const startDifficulty = difficulty => {
   resetHints()
 
   cssInput.value = ''
+  resetAttempts()
+  clearSelectionPreview()
 
   cssInput.removeAttribute('disabled')
   cssInput.classList.remove(
@@ -680,10 +765,25 @@ const initLevel = () => {
   }
 
   cssInput.value = ''
+  clearSelectionPreview()
 }
 
 const checkLevel = () => {
-  const cssValue = cssInput.value
+  const cssValue = cssInput.value.trim()
+
+  if (!cssValue) {
+    cssInput.classList.add('error')
+    if (selectionCount) {
+      selectionCount.textContent = 'Digite um seletor antes de verificar.'
+    }
+    selectorFeedback?.classList.add('invalid')
+    return
+  }
+
+  attempts += 1
+  if (attemptsElement) {
+    attemptsElement.textContent = String(attempts)
+  }
 
   let selectedHtml
 
@@ -751,6 +851,8 @@ const checkLevel = () => {
 
   if (completedLevel) {
     levelSuccess()
+  } else {
+    previewSelector()
   }
 }
 
@@ -842,6 +944,18 @@ submitButton.addEventListener(
     }
   }
 )
+
+cssInput.addEventListener(
+  'input',
+  previewSelector
+)
+
+clearSelectorButton?.addEventListener('click', () => {
+  cssInput.value = ''
+  cssInput.classList.remove('error')
+  previewSelector()
+  cssInput.focus()
+})
 
 cssInput.addEventListener(
   'keypress',
