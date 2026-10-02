@@ -251,30 +251,22 @@ main section {
   position: relative;
   display: block;
 
-  .selector-preview {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    pointer-events: none;
-    z-index: 2;
+  .source-line {
+    display: block;
+    min-height: 1.5em;
+    position: relative;
+    z-index: 1;
+    transition: background-color 120ms ease, box-shadow 120ms ease;
+  }
 
-    li {
-      width: 100%;
-      height: 1.5em;
-      margin: 0;
-      opacity: 0.18;
-    }
+  .selector-line-target {
+    background: rgba(66, 165, 245, 0.22);
+    box-shadow: inset 3px 0 #42A5F5;
+  }
 
-    .selected-target {
-      background: #42A5F5;
-    }
-
-    .selected-wrong {
-      background: #EF5350;
-    }
+  .selector-line-wrong {
+    background: rgba(239, 83, 80, 0.18);
+    box-shadow: inset 3px 0 #EF5350;
   }
 
   .check {
@@ -285,6 +277,8 @@ main section {
     height: 100%;
     padding: 0;
     margin: 0;
+    z-index: 2;
+    pointer-events: none;
 
     li {
       width: 100%;
@@ -296,6 +290,7 @@ main section {
     .correct {
       background-color: #66BB6A;
     }
+
     .wrong {
       background-color: #EF5350;
     }
