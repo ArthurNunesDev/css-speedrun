@@ -12,7 +12,7 @@ A proposta é simples:
 4. Validar a resposta.
 5. Resolver o desafio no menor tempo possível.
 
-O projeto começou como uma aplicação simples para testar conhecimento de seletores CSS e está sendo expandido para possuir **múltiplas dificuldades, sistema de tempo, progresso, ranking competitivo e persistência de resultados**.
+O projeto começou como uma aplicação simples para testar conhecimento de seletores CSS e está sendo expandido para possuir **múltiplas dificuldades, sistema de tempo, modo ranqueado, ranking por dificuldade e persistência local dos resultados**.
 
 ---
 
@@ -105,37 +105,36 @@ Novo recorde pessoal! 🏆
 
 # 🏆 Modo Ranqueado
 
-Uma das principais expansões planejadas é o **modo competitivo ranqueado**.
+O **Modo Ranqueado** transforma a conclusão dos desafios em uma competição baseada no tempo total necessário para completar todos os níveis de uma dificuldade.
 
-Nesse modo, o jogador poderá informar seu nome antes de começar:
+O fluxo planejado é:
 
-```text
-╔══════════════════════════════╗
-║        CSS SPEEDRUN          ║
-║                              ║
-║  Digite seu nome:            ║
-║  [ Arthur_______________ ]   ║
-║                              ║
-║       [ JOGAR RANQUEADO ]    ║
-╚══════════════════════════════╝
-```
+1. O jogador escolhe uma dificuldade.
+2. O jogador seleciona **Modo Ranqueado**.
+3. Um modal solicita o nome do jogador.
+4. O jogador completa todos os níveis da dificuldade.
+5. Ao finalizar, o resultado é registrado automaticamente.
+6. O sistema calcula a posição do jogador e exibe seu melhor tempo.
+7. O resultado é armazenado localmente para permanecer disponível nas próximas sessões.
 
-Depois disso, seus resultados serão registrados durante os desafios.
+## 🎮 Funcionalidades do Modo Ranqueado
 
-## 📊 Ranking
+- 🏁 Botão **Modo Ranqueado** na seleção de dificuldade.
+- 👤 Modal para informar o nome do jogador.
+- 📝 Registro automático do resultado ao completar todos os níveis.
+- 💾 Persistência com **localStorage**.
+- 🏆 **Top 10** separado para cada dificuldade.
+- 📊 Tela de ranking com abas para alternar entre as dificuldades.
+- 📍 Exibição da posição alcançada no ranking.
+- ⏱️ Exibição do melhor tempo na tela de conclusão.
+- 📱 Interface responsiva para desktop e mobile.
+- 🎨 Estilos integrados ao visual atual do CSS Speedrun.
 
-O ranking terá como objetivo registrar os tempos obtidos pelos jogadores.
+## 📊 Estrutura do ranking
 
-A ideia é permitir uma competição baseada em:
+Cada dificuldade possuirá seu próprio ranking, limitado aos **10 melhores resultados**.
 
-- nome do jogador;
-- dificuldade;
-- desafio;
-- tempo obtido;
-- melhor tempo;
-- posição no ranking.
-
-Exemplo conceitual:
+Exemplo:
 
 ```text
 🏆 RANKING — HARD
@@ -145,68 +144,23 @@ Exemplo conceitual:
 1   Arthur           08.421s
 2   PlayerX          09.105s
 3   DevCSS           10.337s
-4   CSSMaster        11.892s
-5   PlayerY          13.441s
+...
+10  PlayerY          21.441s
 ```
 
-O ranking deverá ser separado por dificuldade e/ou desafio conforme a implementação final.
+Os resultados serão organizados pelo menor tempo. Caso um novo resultado entre no Top 10, o ranking será atualizado automaticamente.
+
+## 🏅 Tela de conclusão
+
+Ao completar todos os níveis, a tela de conclusão deverá apresentar:
+
+- tempo final da tentativa;
+- melhor tempo do jogador;
+- posição alcançada no ranking;
+- indicação quando o jogador obtiver um novo recorde pessoal;
+- acesso à tela de ranking.
 
 ---
-
-# 💾 Persistência do ranking
-
-Para que os resultados não desapareçam quando a aplicação for fechada, o projeto precisará de uma camada de persistência.
-
-Uma das opções consideradas é utilizar **XML** para armazenar os dados do ranking.
-
-Exemplo conceitual:
-
-```xml
-<ranking>
-    <player>
-        <name>Arthur</name>
-        <difficulty>hard</difficulty>
-        <level>12</level>
-        <time>8.421</time>
-    </player>
-
-    <player>
-        <name>PlayerX</name>
-        <difficulty>hard</difficulty>
-        <level>12</level>
-        <time>9.105</time>
-    </player>
-</ranking>
-```
-
-### ⚠️ Arquitetura
-
-Como o projeto possui uma interface web, a persistência compartilhada do ranking não deve depender somente do navegador do usuário.
-
-Para um ranking realmente competitivo entre diferentes jogadores, será necessário definir uma solução de armazenamento no lado do servidor.
-
-O XML é uma possibilidade de armazenamento a ser avaliada durante essa etapa.
-
-A arquitetura final poderá evoluir para:
-
-```text
-Frontend
-   │
-   ▼
-Sistema de desafios
-   │
-   ▼
-API / Backend
-   │
-   ▼
-Persistência
-   │
-   ├── XML
-   └── ou outra solução definida posteriormente
-```
-
----
-
 # 🧠 Conteúdo de CSS
 
 Os desafios podem abordar diferentes níveis de conhecimento.
@@ -433,6 +387,19 @@ Ele precisa entender a estrutura, encontrar a solução correta e executá-la ra
 
 # 🎨 Interface e experiência
 
+A interface deve manter o visual atual do jogo e seguir uma identidade consistente entre as telas.
+
+As novas funcionalidades de ranking devem utilizar os mesmos padrões visuais do CSS Speedrun, incluindo:
+
+- cores;
+- bordas;
+- espaçamentos;
+- tipografia;
+- estados de hover;
+- estados de seleção;
+- feedback de sucesso;
+- animações e transições já utilizadas.
+
 A interface poderá evoluir para deixar o projeto cada vez mais parecido com um jogo.
 
 Melhorias planejadas:
@@ -474,19 +441,25 @@ Para aumentar a sensação de gameplay:
 
 # 📱 Responsividade
 
-O projeto deverá funcionar em diferentes tamanhos de tela:
+A interface do CSS Speedrun deve funcionar de forma consistente em diferentes tamanhos de tela:
 
 - Desktop;
 - Notebook;
 - Tablet;
 - Smartphone.
 
-Também estão previstos:
+A implementação do sistema ranqueado também deve manter a responsividade, incluindo:
 
-- editor responsivo;
-- layout adaptável;
-- controles adequados para telas pequenas;
-- ranking adaptado para dispositivos móveis.
+- seleção de dificuldade;
+- botão Modo Ranqueado;
+- modal de nome;
+- tela de conclusão;
+- tela de ranking;
+- abas de dificuldade;
+- tabelas/listas do Top 10;
+- controles adequados para telas pequenas.
+
+O objetivo é evitar elementos sobrepostos, textos cortados ou controles difíceis de utilizar em dispositivos móveis.
 
 ---
 
@@ -578,64 +551,43 @@ Essas mecânicas dependem da evolução da arquitetura de dados e do sistema de 
 
 ## Fase 1 — Estrutura dos desafios
 
-- [ ] Organizar todos os níveis.
-- [ ] Criar níveis para cada dificuldade.
-- [ ] Revisar soluções.
-- [ ] Balancear as dificuldades.
-- [ ] Remover desafios repetitivos.
-- [ ] Criar desafios especiais.
-- [ ] Criar a dificuldade `???`.
+- [x] Organizar os níveis por dificuldade.
+- [x] Criar níveis para as dificuldades atuais.
+- [x] Criar a dificuldade `???`.
+- [ ] Revisar e balancear continuamente os desafios.
 
 ## Fase 2 — Gameplay
 
-- [ ] Melhorar validação.
-- [ ] Melhorar feedback.
-- [ ] Adicionar animações.
-- [ ] Melhorar interação com o editor.
-- [ ] Cronômetro por nível.
-- [ ] Registro de tentativas.
-- [ ] Sistema de pontuação.
+- [x] Sistema de seleção de dificuldade.
+- [x] Cronômetro.
+- [x] Registro de tempo por nível.
+- [x] Feedback visual de acerto e erro.
+- [x] Sistema de dicas.
+- [ ] Melhorar continuamente as interações e feedbacks.
 
-## Fase 3 — Progressão
+## Fase 3 — Sistema ranqueado
 
-- [ ] Sistema de progresso.
-- [ ] Recordes pessoais.
-- [ ] Estatísticas.
+- [ ] **Botão "Modo Ranqueado"** na seleção de dificuldade.
+- [ ] **Modal para informar o nome do jogador**.
+- [ ] **Registro automático de resultados** ao completar todos os níveis.
+- [ ] **Ranking persistente com localStorage**, mantendo o Top 10 por dificuldade.
+- [ ] **Tela de ranking** com abas por dificuldade.
+- [ ] **Exibição da posição** e do melhor tempo na tela de conclusão.
+- [ ] **Responsividade completa** para desktop e mobile.
+- [ ] **Estilos consistentes** com o visual do jogo.
+
+## Fase 4 — Expansões futuras
+
+- [ ] Estatísticas de desempenho.
+- [ ] Histórico de tentativas.
+- [ ] Recordes pessoais mais detalhados.
 - [ ] Conquistas.
-- [ ] Desbloqueio de dificuldades.
-
-## Fase 4 — Ranking
-
-- [ ] Criar modo ranqueado.
-- [ ] Tela para informar o nome.
-- [ ] Registrar resultados.
-- [ ] Ranking por dificuldade.
-- [ ] Ranking por desafio.
-- [ ] Histórico de tempos.
-- [ ] Melhor tempo pessoal.
-- [ ] Definir regras de classificação.
-
-## Fase 5 — Persistência
-
-- [ ] Definir arquitetura de armazenamento.
-- [ ] Avaliar persistência em XML.
-- [ ] Criar camada de leitura dos resultados.
-- [ ] Criar camada de gravação dos resultados.
-- [ ] Integrar o ranking com a persistência.
-- [ ] Garantir que resultados não sejam perdidos.
-- [ ] Definir solução para ranking compartilhado entre jogadores.
-
-## Fase 6 — Conteúdo avançado
-
-- [ ] Flexbox.
-- [ ] Grid.
-- [ ] Responsividade.
-- [ ] Animações.
-- [ ] CSS moderno.
-- [ ] Novas categorias de desafios.
+- [ ] Desafios diários.
+- [ ] Desafio aleatório.
+- [ ] Novas categorias de CSS.
+- [ ] Avaliar futuramente um ranking online/global.
 
 ---
-
 # 🧱 Estrutura do projeto
 
 A aplicação utiliza uma organização baseada em arquivos separados para HTML, JavaScript, estilos, assets e desafios.
@@ -780,15 +732,15 @@ A aplicação originalmente tinha uma quantidade pequena de puzzles e uma propos
 - múltiplas dificuldades;
 - desafios progressivos;
 - sistema de tempo;
-- progresso;
-- recordes;
-- modo ranqueado;
-- ranking;
-- persistência de resultados;
-- desafios extremos;
+- dificuldade extrema `???`;
+- modo ranqueado em desenvolvimento;
+- ranking Top 10 por dificuldade;
+- persistência local com `localStorage`;
+- tela de conclusão com posição e melhor tempo;
+- interface responsiva;
 - futuras estatísticas e conquistas.
 
-Algumas dessas funcionalidades ainda estão em planejamento e serão implementadas gradualmente.
+O próximo foco de desenvolvimento é concluir o sistema ranqueado e sua integração visual com o jogo.
 
 ---
 
