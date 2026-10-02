@@ -808,12 +808,12 @@ const initLevel = () => {
   document.title = `CSS Speedrun | ${meta.title}`
 
   htmlGoal.innerHTML =
-    puzzles[levelIndex].goal.reduce(
-      (acc, curr) =>
-        acc +
-        (curr ? '➡️\n' : '\n'),
-      ''
-    )
+    puzzles[levelIndex].goal
+      .map(
+        curr =>
+          `<span class="goal-line">${curr ? '➡️' : ''}</span>`
+      )
+      .join('')
 
   verification.innerHTML =
     puzzles[levelIndex].verificationCode
