@@ -29,11 +29,6 @@ details[open] {
   list-style: disclosure-open;
 }
 
-main {
-  width: calc(100vw - 40px);
-  max-width: none;
-}
-
 main section {
   width: 100%;
   min-height: 300px;
@@ -41,6 +36,39 @@ main section {
 
   @media (max-width: 600px) {
     flex-direction: column;
+  }
+}
+
+.left-column {
+  width: 60%;
+  margin-right: 10px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+.right-column {
+  width: 40%;
+  margin-left: 10px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+.codebox {
+  position: relative;
+  display: flex;
+
+  pre:first-child {
+    overflow: hidden;
+  }
+
+  pre:last-child {
+    width: 100%;
   }
 }
 
@@ -70,7 +98,6 @@ main section {
   }
 
   .left-column,
-  .left-column.code-screen--long,
   .right-column {
     width: 100%;
     margin: 10px 0;
