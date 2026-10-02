@@ -36,6 +36,8 @@ const nextLevel = document.querySelector('#next-level')
 const tooltip = document.querySelector('#tooltip')
 const resultScreen = document.querySelector('#result-screen')
 const codeScreen = document.querySelector('#code-screen')
+const gameSection = document.querySelector('main > section')
+const gameDetails = document.querySelector('main > details')
 
 const RANKING_STORAGE_KEY = 'css-speedrun-ranking-v1'
 
@@ -187,7 +189,7 @@ const createRankingUI = () => {
   `
   document.querySelector('main').insertBefore(
     rankingScreen,
-    document.querySelector('main > section')
+    gameSection
   )
 
   const resultInfo = document.createElement('div')
@@ -232,17 +234,19 @@ const createRankingUI = () => {
 
   const showRanking = difficulty => {
     renderRanking(difficulty)
+    resetTimer()
     difficultyPanel.classList.add('hidden')
-    document.querySelector('main > details').classList.add('hidden')
-    document.querySelector('main > section').classList.add('hidden')
+    gameDetails.classList.add('hidden')
+    gameSection.classList.add('hidden')
     rankingScreen.classList.remove('hidden')
   }
 
   const hideRanking = () => {
+    timer.stop()
     rankingScreen.classList.add('hidden')
     difficultyPanel.classList.remove('hidden')
-    document.querySelector('main > details').classList.remove('hidden')
-    document.querySelector('main > section').classList.remove('hidden')
+    gameDetails.classList.remove('hidden')
+    gameSection.classList.remove('hidden')
   }
 
   rankingButton.addEventListener('click', openModal)
@@ -420,6 +424,8 @@ const startDifficulty = difficulty => {
 
   currentDifficulty = difficulty
 
+  timer.stop()
+  timer.reset()
   puzzles = puzzleSets[difficulty]
 
   levelIndex = 0
@@ -630,7 +636,7 @@ const initLevel = () => {
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
 
-  if (levelIndex >= 1 && introCompleted) {
+  if (levelIndex >= 1 && introCompleted && !timer.isRunning()) {
     timer.start()
   }
 
