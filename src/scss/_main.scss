@@ -65,11 +65,34 @@ main section {
 
   pre:first-child {
     overflow: hidden;
+    flex: 0 0 auto;
   }
 
   pre:last-child {
     width: 100%;
   }
+}
+
+#html-goal {
+  width: 54px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 10px 0 0;
+  text-align: right;
+  background: var(--nc-bg-2);
+  border: 0;
+  box-shadow: none;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+#html-goal code {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+  text-align: right;
+  white-space: pre;
 }
 
 .code-screen--compact .codebox {
