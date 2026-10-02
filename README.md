@@ -565,16 +565,16 @@ Essas mecânicas dependem da evolução da arquitetura de dados e do sistema de 
 - [x] Sistema de dicas.
 - [ ] Melhorar continuamente as interações e feedbacks.
 
-## Fase 3 — Sistema ranqueado
+## Fase 3 — Sistema ranqueado — Implementado
 
-- [ ] **Botão "Modo Ranqueado"** na seleção de dificuldade.
-- [ ] **Modal para informar o nome do jogador**.
-- [ ] **Registro automático de resultados** ao completar todos os níveis.
-- [ ] **Ranking persistente com localStorage**, mantendo o Top 10 por dificuldade.
-- [ ] **Tela de ranking** com abas por dificuldade.
-- [ ] **Exibição da posição** e do melhor tempo na tela de conclusão.
-- [ ] **Responsividade completa** para desktop e mobile.
-- [ ] **Estilos consistentes** com o visual do jogo.
+- [x] **Botão "Modo Ranqueado"** na seleção de dificuldade.
+- [x] **Modal para informar o nome do jogador**.
+- [x] **Registro automático de resultados** ao completar todos os níveis.
+- [x] **Ranking persistente com localStorage**, mantendo o Top 10 por dificuldade.
+- [x] **Tela de ranking** com abas por dificuldade.
+- [x] **Exibição da posição** e do melhor tempo na tela de conclusão.
+- [x] **Responsividade completa** para desktop e mobile.
+- [x] **Estilos consistentes** com o visual do jogo.
 
 ## Fase 4 — Expansões futuras
 
@@ -740,7 +740,7 @@ A aplicação originalmente tinha uma quantidade pequena de puzzles e uma propos
 - interface responsiva;
 - futuras estatísticas e conquistas.
 
-O próximo foco de desenvolvimento é concluir o sistema ranqueado e sua integração visual com o jogo.
+O sistema ranqueado já está integrado ao jogo. O próximo foco pode ser a evolução das estatísticas, conquistas e outros modos de jogo.
 
 ---
 
