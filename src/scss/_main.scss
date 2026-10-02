@@ -269,6 +269,23 @@ main section {
     box-shadow: inset 3px 0 #EF5350;
   }
 
+  .selector-line-target::before,
+  .selector-line-wrong::before {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    font-size: 0.8em;
+    opacity: 0.9;
+  }
+
+  .selector-line-target::before {
+    content: '✓ alvo';
+  }
+
+  .selector-line-wrong::before {
+    content: '✕ fora do alvo';
+  }
+
   .check {
     position: absolute;
     top: 0;
