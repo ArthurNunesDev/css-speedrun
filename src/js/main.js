@@ -470,6 +470,23 @@ const previewSelector = () => {
     element.setAttribute('data-selector-preview', '')
   })
 
+  let preview = htmlInput.querySelector('.selector-preview')
+  if (!preview) {
+    preview = document.createElement('ul')
+    preview.className = 'selector-preview'
+    htmlInput.appendChild(preview)
+  }
+
+  preview.innerHTML = puzzles[levelIndex].goal.map((goal, row) => {
+    if (!selectedRows.has(row)) {
+      return '<li></li>'
+    }
+
+    return goal
+      ? '<li class="selected-target"></li>'
+      : '<li class="selected-wrong"></li>'
+  }).join('')
+
   const goals = puzzles[levelIndex].goal
   const targetCount = goals.filter(Boolean).length
   const selectedTargetCount = Array.from(selectedRows)
