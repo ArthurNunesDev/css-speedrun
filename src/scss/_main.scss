@@ -316,3 +316,18 @@ main section {
 #tooltip[data-show] {
   display: block;
 }
+
+
+.level-explanation {
+  display: block;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-left: 3px solid #66BB6A;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+#selection-count {
+  display: inline-block;
+}
