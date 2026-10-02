@@ -318,6 +318,23 @@ const difficultyNames = {
   desconhecido: '❓ ???',
 }
 
+const getLevelMeta = () => ({
+  id: puzzles[levelIndex].id || `${currentDifficulty}-${levelIndex + 1}`,
+  title: puzzles[levelIndex].title || (levelIndex === 0 ? 'Intro' : `Level ${levelIndex}`),
+  concept: puzzles[levelIndex].concept || 'Seletores CSS',
+  explanation: puzzles[levelIndex].explanation || '',
+})
+
+const showLevelExplanation = () => {
+  const meta = getLevelMeta()
+  if (!meta.explanation) return
+
+  solutionCode.insertAdjacentHTML(
+    'afterend',
+    `<span class="level-explanation">${escapeHtml(meta.explanation)}</span>`
+  )
+}
+
 const difficultyDescriptions = {
   facil: 'Seletores básicos e fundamentos',
   medio: 'Combinações e pseudo-classes',
@@ -603,6 +620,8 @@ const levelSuccess = () => {
 
   solution.classList.remove('hidden')
   cssInput.classList.add('success')
+  solutionCode.parentElement.querySelectorAll('.level-explanation').forEach(node => node.remove())
+  showLevelExplanation()
 
   clearTimeout(hintTimeout1)
   clearTimeout(hintTimeout2)
@@ -747,6 +766,10 @@ const initLevel = () => {
     Prism.languages.markup,
     'markup'
   )
+
+  const meta = getLevelMeta()
+
+  document.title = `CSS Speedrun | ${meta.title}`
 
   htmlGoal.innerHTML =
     puzzles[levelIndex].goal.reduce(
