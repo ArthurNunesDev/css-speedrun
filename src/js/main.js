@@ -445,8 +445,8 @@ const clearSelectionPreview = () => {
     element.removeAttribute('data-selector-match')
   })
 
-  htmlInput.querySelectorAll('.selector-preview').forEach(element => {
-    element.classList.remove('selector-preview')
+  htmlInput.querySelectorAll('.selector-line-target, .selector-line-wrong').forEach(element => {
+    element.classList.remove('selector-line-target', 'selector-line-wrong')
   })
 
   if (selectionCount) {
@@ -455,6 +455,15 @@ const clearSelectionPreview = () => {
 
   selectorFeedback?.classList.remove('valid', 'invalid', 'target')
 }
+
+const highlightMarkup = markup =>
+  markup
+    .split('\n')
+    .map(line =>
+      Prism.highlight(line, Prism.languages.markup, 'markup')
+    )
+    .map(line => `<span class="source-line">${line || '&nbsp;'}</span>`)
+    .join('\n')
 
 const previewSelector = () => {
   clearSelectionPreview()
@@ -487,22 +496,16 @@ const previewSelector = () => {
     element.setAttribute('data-selector-preview', '')
   })
 
-  let preview = htmlInput.querySelector('.selector-preview')
-  if (!preview) {
-    preview = document.createElement('ul')
-    preview.className = 'selector-preview'
-    htmlInput.appendChild(preview)
-  }
+  selectedRows.forEach(row => {
+    const line = htmlInput.querySelector(`.source-line:nth-child(${row + 1})`)
+    if (!line) return
 
-  preview.innerHTML = puzzles[levelIndex].goal.map((goal, row) => {
-    if (!selectedRows.has(row)) {
-      return '<li></li>'
-    }
-
-    return goal
-      ? '<li class="selected-target"></li>'
-      : '<li class="selected-wrong"></li>'
-  }).join('')
+    line.classList.add(
+      puzzles[levelIndex].goal[row]
+        ? 'selector-line-target'
+        : 'selector-line-wrong'
+    )
+  })
 
   const goals = puzzles[levelIndex].goal
   const targetCount = goals.filter(Boolean).length
@@ -762,10 +765,8 @@ const initLevel = () => {
 
   cssInput.removeAttribute('disabled')
 
-  htmlInput.innerHTML = Prism.highlight(
-    puzzles[levelIndex].code,
-    Prism.languages.markup,
-    'markup'
+  htmlInput.innerHTML = highlightMarkup(
+    puzzles[levelIndex].code
   )
 
   const meta = getLevelMeta()
