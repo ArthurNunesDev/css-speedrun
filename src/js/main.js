@@ -758,6 +758,7 @@ const initLevel = () => {
 
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
+  solutionCode.parentElement.querySelectorAll('.level-explanation').forEach(node => node.remove())
 
   cssInput.removeAttribute('disabled')
 
