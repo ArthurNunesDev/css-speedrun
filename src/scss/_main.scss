@@ -40,30 +40,36 @@ main section {
   width: 100%;
   min-height: 300px;
   display: flex;
+  gap: 20px;
+  box-sizing: border-box;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     flex-direction: column;
   }
 }
 
 .left-column {
-  width: 74%;
-  margin-right: 10px;
+  flex: 1 1 0;
+  width: auto;
+  margin: 0;
   min-width: 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     width: 100%;
+    flex: none;
     margin: 10px 0;
   }
 }
 
 .right-column {
-  width: 26%;
-  margin-left: 10px;
+  flex: 0 0 26%;
+  width: auto;
+  margin: 0;
   min-width: 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     width: 100%;
+    flex: none;
     margin: 10px 0;
   }
 }
@@ -73,14 +79,20 @@ main section {
   display: flex;
   width: 100%;
   min-width: 0;
+  box-sizing: border-box;
+
+  > pre {
+    margin: 0;
+  }
 
   pre:first-child {
     overflow: hidden;
-    flex: 0 0 auto;
+    flex: 0 0 54px;
   }
 
   pre:last-child {
-    width: 100%;
+    flex: 1 1 0;
+    width: 0;
     min-width: 0;
     overflow-x: auto;
   }
@@ -135,16 +147,6 @@ main section {
 }
 
 @media (max-width: 900px) {
-  main section {
-    flex-direction: column;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-    margin: 10px 0;
-  }
-
   .code-screen--long .codebox {
     font-size: 0.78em;
   }
