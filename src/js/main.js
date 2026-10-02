@@ -636,10 +636,6 @@ const initLevel = () => {
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
 
-  if (levelIndex >= 1 && introCompleted && !timer.isRunning()) {
-    timer.start()
-  }
-
   cssInput.removeAttribute('disabled')
 
   htmlInput.innerHTML = Prism.highlight(
@@ -833,6 +829,10 @@ submitButton.addEventListener(
     cssInput.classList.remove('error')
 
     if (isLevelSuccess) {
+      if (levelIndex >= 1 && introCompleted) {
+        timer.start()
+      }
+
       initLevel()
     } else {
       checkLevel()
@@ -847,6 +847,10 @@ cssInput.addEventListener(
 
     if (e.keyCode === 13) {
       if (isLevelSuccess) {
+        if (levelIndex >= 1 && introCompleted) {
+          timer.start()
+        }
+
         initLevel()
       } else {
         checkLevel()
