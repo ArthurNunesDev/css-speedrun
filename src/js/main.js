@@ -17,6 +17,7 @@ let hintTimeout2
 let rankedMode = false
 let rankedPlayer = ''
 let rankedResult = null
+let introCompleted = false
 
 const results = []
 
@@ -134,19 +135,22 @@ const registerRankedResult = () => {
 }
 
 const createRankingUI = () => {
+  const rankingActions = document.createElement('div')
+  rankingActions.className = 'ranking-actions'
+
   const rankingButton = document.createElement('button')
   rankingButton.type = 'button'
   rankingButton.className = 'ranked-button'
   rankingButton.id = 'ranked-mode-button'
   rankingButton.textContent = '🏆 Modo Ranqueado'
 
-  difficultyPanel.appendChild(rankingButton)
-
   const viewRankingButton = document.createElement('button')
   viewRankingButton.type = 'button'
   viewRankingButton.className = 'ranking-view-button'
   viewRankingButton.textContent = 'Ver Ranking'
-  difficultyPanel.appendChild(viewRankingButton)
+
+  rankingActions.append(rankingButton, viewRankingButton)
+  difficultyPanel.appendChild(rankingActions)
 
   const modal = document.createElement('div')
   modal.id = 'player-modal'
@@ -424,6 +428,7 @@ const startDifficulty = difficulty => {
 
   results.length = 0
   rankedResult = null
+  introCompleted = false
 
   resetTimer()
   resetHints()
@@ -493,6 +498,7 @@ const levelSuccess = () => {
   clearTimeout(hintTimeout2)
 
   if (levelIndex === 1) {
+    introCompleted = true
     nextLevel.classList.remove('hidden')
   }
 
@@ -624,7 +630,7 @@ const initLevel = () => {
   solution.classList.add('hidden')
   nextLevel.classList.add('hidden')
 
-  if (levelIndex >= 1) {
+  if (levelIndex >= 1 && introCompleted) {
     timer.start()
   }
 
