@@ -811,7 +811,7 @@ const initLevel = () => {
     puzzles[levelIndex].goal.reduce(
       (acc, curr) =>
         acc +
-        (curr ? '➡️\\n' : '\\n'),
+        (curr ? '➡️\n' : '\n'),
       ''
     )
 
