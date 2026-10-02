@@ -20,7 +20,6 @@ let rankedResult = null
 let introCompleted = false
 let timerEnabled = false
 let attempts = 0
-let levelErrors = 0
 
 const results = []
 
@@ -437,7 +436,6 @@ const resetTimer = () => {
 
 const resetAttempts = () => {
   attempts = 0
-  levelErrors = 0
   if (attemptsElement) {
     attemptsElement.textContent = '0'
   }
@@ -842,7 +840,6 @@ const checkLevel = () => {
   }
 
   attempts += 1
-  levelErrors += 1
   if (attemptsElement) {
     attemptsElement.textContent = String(attempts)
   }
@@ -946,12 +943,6 @@ const checkLevel = () => {
   } else {
     previewSelector()
   }
-}
-
-const getLevelAccuracy = () => {
-  const totalAttempts = attempts
-  if (!totalAttempts) return 100
-  return Math.round((1 / totalAttempts) * 100)
 }
 
 const generateWinScreen = () => {
