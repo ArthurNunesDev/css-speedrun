@@ -164,9 +164,15 @@ main section {
 #html-goal code {
   display: block;
   line-height: inherit;
-  white-space: pre;
+  white-space: normal;
   text-align: right;
 }
+
+#html-goal .goal-line {
+  display: block;
+  min-height: 1.5em;
+  line-height: inherit;
+  white-space: pre;
 }
 
 .code-screen--compact .codebox {
@@ -184,7 +190,7 @@ main section {
 }
 
 .codebox > pre {
-  background: transparent;
+  background: var(--nc-bg-2);
   border: 0;
   box-shadow: none;
 }
