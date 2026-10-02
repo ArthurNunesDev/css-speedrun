@@ -74,9 +74,16 @@
           </a>
         </blockquote>
 
-        <input id="css-input" placeholder="Enter CSS selector eg. div > .foo"  autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" />
-        <button id="submit">-></button>
+        <div class="selector-controls">
+          <input id="css-input" placeholder="Enter CSS selector eg. div > .foo" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Seletor CSS" />
+          <button id="submit" type="button">-></button>
+          <button id="clear-selector" type="button" title="Limpar seletor" aria-label="Limpar seletor">×</button>
+        </div>
+        <div id="selector-feedback" class="selector-feedback" aria-live="polite">
+          <span id="selection-count">Digite um seletor para testar.</span>
+        </div>
         <p id="next-level" class="hidden">Press enter or the submit button to continue</p>
+        <p id="attempts" class="attempts">Tentativas: <strong>0</strong></p>
         <p id="solution" class="hidden">
           devs choice:
           <code id="solution-code"></code>
