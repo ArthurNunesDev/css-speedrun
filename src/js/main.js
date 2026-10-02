@@ -14,6 +14,9 @@ let finalResult = ''
 let isLevelSuccess = false
 let hintTimeout1
 let hintTimeout2
+let rankedMode = false
+let rankedPlayer = ''
+let rankedResult = null
 
 const results = []
 
@@ -32,6 +35,254 @@ const nextLevel = document.querySelector('#next-level')
 const tooltip = document.querySelector('#tooltip')
 const resultScreen = document.querySelector('#result-screen')
 const codeScreen = document.querySelector('#code-screen')
+
+const RANKING_STORAGE_KEY = 'css-speedrun-ranking-v1'
+
+const loadRankings = () => {
+  try {
+    const saved = localStorage.getItem(RANKING_STORAGE_KEY)
+    const parsed = saved ? JSON.parse(saved) : {}
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+const saveRankings = rankings => {
+  localStorage.setItem(RANKING_STORAGE_KEY, JSON.stringify(rankings))
+}
+
+const timeToTenths = time => (
+  (Number(time.minutes) || 0) * 600 +
+  (Number(time.seconds) || 0) * 10 +
+  (Number(time.secondTenths) || 0)
+)
+
+const formatTenths = total => {
+  const minutes = Math.floor(total / 600)
+  const seconds = Math.floor((total % 600) / 10)
+  const tenths = total % 10
+
+  return (
+    `${getFormattedNumber(minutes)}:${getFormattedNumber(seconds)}:${tenths}`
+  )
+}
+
+const difficultyLabel = key => difficultyNames[key] || key
+
+const getRanking = difficulty => {
+  const rankings = loadRankings()
+  const entries = Array.isArray(rankings[difficulty]) ? rankings[difficulty] : []
+
+  return entries
+    .filter(entry => entry && entry.name && Number.isFinite(entry.time))
+    .sort((a, b) => a.time - b.time)
+    .slice(0, 10)
+}
+
+const registerRankedResult = () => {
+  if (!rankedMode || !rankedPlayer) {
+    return null
+  }
+
+  const rankings = loadRankings()
+  const current = getRanking(currentDifficulty)
+  const previous = current.find(
+    entry => entry.name.toLowerCase() === rankedPlayer.toLowerCase()
+  )
+
+  const time = timeToTenths(timer.getTimeValues())
+
+  if (previous && previous.time <= time) {
+    const position = current.findIndex(entry => entry.name === previous.name) + 1
+
+    return {
+      position,
+      bestTime: previous.time,
+      isNewBest: false,
+    }
+  }
+
+  const withoutPlayer = current.filter(
+    entry => entry.name.toLowerCase() !== rankedPlayer.toLowerCase()
+  )
+
+  withoutPlayer.push({
+    name: rankedPlayer,
+    time,
+  })
+
+  withoutPlayer.sort((a, b) => a.time - b.time)
+  rankings[currentDifficulty] = withoutPlayer.slice(0, 10)
+  saveRankings(rankings)
+
+  const updated = getRanking(currentDifficulty)
+  const position = updated.findIndex(
+    entry => entry.name.toLowerCase() === rankedPlayer.toLowerCase()
+  ) + 1
+
+  return {
+    position,
+    bestTime: time,
+    isNewBest: !previous || time < previous.time,
+  }
+}
+
+const createRankingUI = () => {
+  const rankingButton = document.createElement('button')
+  rankingButton.type = 'button'
+  rankingButton.className = 'ranked-button'
+  rankingButton.id = 'ranked-mode-button'
+  rankingButton.textContent = '🏆 Modo Ranqueado'
+
+  difficultyPanel.appendChild(rankingButton)
+
+  const modal = document.createElement('div')
+  modal.id = 'player-modal'
+  modal.className = 'ranking-modal hidden'
+  modal.innerHTML = `
+    <div class="ranking-modal-backdrop"></div>
+    <div class="ranking-modal-card" role="dialog" aria-modal="true" aria-labelledby="player-modal-title">
+      <button type="button" class="ranking-close" aria-label="Fechar">×</button>
+      <h2 id="player-modal-title">🏆 Modo Ranqueado</h2>
+      <p>Digite seu nome para registrar seu resultado no ranking.</p>
+      <input id="player-name-input" maxlength="18" autocomplete="off" placeholder="Nome do jogador">
+      <div class="ranking-modal-actions">
+        <button type="button" id="player-cancel">Cancelar</button>
+        <button type="button" id="player-start">Começar</button>
+      </div>
+      <small>Seu melhor tempo será salvo neste navegador.</small>
+    </div>
+  `
+  document.body.appendChild(modal)
+
+  const rankingScreen = document.createElement('section')
+  rankingScreen.id = 'ranking-screen'
+  rankingScreen.className = 'hidden'
+  rankingScreen.innerHTML = `
+    <div class="ranking-heading">
+      <div>
+        <strong>🏆 Ranking</strong>
+        <span>Top 10 por dificuldade</span>
+      </div>
+      <button type="button" id="ranking-back">Voltar ao jogo</button>
+    </div>
+    <div id="ranking-tabs" class="ranking-tabs"></div>
+    <div id="ranking-list" class="ranking-list"></div>
+  `
+  document.querySelector('main').insertBefore(
+    rankingScreen,
+    document.querySelector('main > section')
+  )
+
+  const resultInfo = document.createElement('div')
+  resultInfo.id = 'ranked-result'
+  resultInfo.className = 'ranked-result hidden'
+  resultScreen.appendChild(resultInfo)
+
+  const openModal = () => {
+    modal.classList.remove('hidden')
+    const input = modal.querySelector('#player-name-input')
+    input.value = rankedPlayer
+    setTimeout(() => input.focus(), 0)
+  }
+
+  const closeModal = () => modal.classList.add('hidden')
+
+  const renderRanking = difficulty => {
+    const list = getRanking(difficulty)
+    const tabs = rankingScreen.querySelector('#ranking-tabs')
+    const container = rankingScreen.querySelector('#ranking-list')
+
+    tabs.innerHTML = Object.keys(difficultyNames).map(key => `
+      <button type="button" class="${key === difficulty ? 'active' : ''}" data-ranking-difficulty="${key}">
+        ${difficultyNames[key]}
+      </button>
+    `).join('')
+
+    container.innerHTML = list.length
+      ? list.map((entry, index) => `
+          <div class="ranking-row ${entry.name.toLowerCase() === rankedPlayer.toLowerCase() && keySafe(entry.name) ? 'current-player' : ''}">
+            <span class="ranking-position">#${index + 1}</span>
+            <strong>${escapeHtml(entry.name)}</strong>
+            <span>${formatTenths(entry.time)}</span>
+          </div>
+        `).join('')
+      : '<p class="ranking-empty">Ainda não há resultados nesta dificuldade.</p>'
+
+    tabs.querySelectorAll('[data-ranking-difficulty]').forEach(tab => {
+      tab.addEventListener('click', () => renderRanking(tab.dataset.rankingDifficulty))
+    })
+  }
+
+  const showRanking = difficulty => {
+    renderRanking(difficulty)
+    difficultyPanel.classList.add('hidden')
+    document.querySelector('main > details').classList.add('hidden')
+    document.querySelector('main > section').classList.add('hidden')
+    rankingScreen.classList.remove('hidden')
+  }
+
+  const hideRanking = () => {
+    rankingScreen.classList.add('hidden')
+    difficultyPanel.classList.remove('hidden')
+    document.querySelector('main > details').classList.remove('hidden')
+    document.querySelector('main > section').classList.remove('hidden')
+  }
+
+  rankingButton.addEventListener('click', openModal)
+  modal.querySelector('.ranking-close').addEventListener('click', closeModal)
+  modal.querySelector('.ranking-modal-backdrop').addEventListener('click', closeModal)
+  modal.querySelector('#player-cancel').addEventListener('click', closeModal)
+  modal.querySelector('#player-start').addEventListener('click', () => {
+    const input = modal.querySelector('#player-name-input')
+    const name = input.value.trim()
+
+    if (!name) {
+      input.classList.add('error')
+      input.focus()
+      return
+    }
+
+    input.classList.remove('error')
+    rankedPlayer = name
+    rankedMode = true
+    closeModal()
+    startDifficulty(currentDifficulty)
+  })
+
+  modal.querySelector('#player-name-input').addEventListener('keypress', event => {
+    if (event.key === 'Enter') {
+      modal.querySelector('#player-start').click()
+    }
+  })
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal()
+    }
+  })
+
+  document.querySelector('#ranking-back').addEventListener('click', hideRanking)
+
+  return {
+    showRanking,
+    resultInfo,
+    rankingButton,
+  }
+}
+
+const escapeHtml = value => value.replace(/[&<>"']/g, char => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#039;',
+}[char]))
+
+const keySafe = value => Boolean(value)
+
+
 
 const difficultyNames = {
   facil: 'Fácil',
@@ -90,6 +341,8 @@ const difficultyButtons = Array.from(
 
 const difficultyDescription =
   difficultyPanel.querySelector('#difficulty-description')
+
+const rankingUI = createRankingUI()
 
 const getFormattedNumber = i =>
   i.toString().padStart(2, 0)
@@ -158,6 +411,7 @@ const startDifficulty = difficulty => {
   isLevelSuccess = false
 
   results.length = 0
+  rankedResult = null
 
   resetTimer()
   resetHints()
@@ -179,6 +433,11 @@ const startDifficulty = difficulty => {
 
   if (resultScreen) {
     resultScreen.classList.add('hidden')
+  }
+
+  if (rankingUI.resultInfo) {
+    rankingUI.resultInfo.classList.add('hidden')
+    rankingUI.resultInfo.innerHTML = ''
   }
 
   if (codeScreen) {
@@ -254,6 +513,10 @@ const levelSuccess = () => {
       'disabled',
       true
     )
+
+    if (rankedMode) {
+      rankedResult = registerRankedResult()
+    }
 
     generateWinScreen()
 
@@ -497,6 +760,26 @@ const generateWinScreen = () => {
       'hidden'
     )
   }
+
+  if (rankingUI.resultInfo) {
+    if (rankedMode && rankedResult) {
+      rankingUI.resultInfo.innerHTML = `
+        <div class="ranked-result-main">
+          <span>🏆 Sua posição</span>
+          <strong>#${rankedResult.position}</strong>
+        </div>
+        <div class="ranked-result-details">
+          <span>Melhor tempo</span>
+          <strong>${formatTenths(rankedResult.bestTime)}</strong>
+        </div>
+        <p>${rankedResult.isNewBest ? '🎉 Novo recorde pessoal!' : 'Seu melhor resultado continua registrado.'}</p>
+        <button type="button" id="open-ranking-from-result">Ver ranking</button>
+      `
+      rankingUI.resultInfo.classList.remove('hidden')
+      rankingUI.resultInfo.querySelector('#open-ranking-from-result')
+        .addEventListener('click', () => rankingUI.showRanking(currentDifficulty))
+    }
+  }
 }
 
 difficultyButtons.forEach(button => {
@@ -507,6 +790,8 @@ difficultyButtons.forEach(button => {
         return
       }
 
+      rankedMode = false
+      rankedPlayer = ''
       startDifficulty(
         button.dataset.difficulty
       )
