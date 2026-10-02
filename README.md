@@ -2,7 +2,7 @@
 
 > Um jogo interativo para praticar CSS através de desafios progressivos, velocidade, precisão e competição ranqueada.
 
- [**CSS Speedrun**](https://inspiring-bombolone-599e54.netlify.app/) é um projeto que transforma o aprendizado de CSS em uma experiência próxima de um jogo de speedrun.
+ [**CSS Speedrun**](https://css-speedrun-psi.vercel.app/) é um projeto que transforma o aprendizado de CSS em uma experiência próxima de um jogo de speedrun.
 
 A proposta é simples:
 
