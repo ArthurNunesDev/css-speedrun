@@ -13,7 +13,7 @@ export default {
 
   hint1: "O valor cont\u00e9m arge.",
 
-  hint2: "Use *=.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-role*=\"arge\"]",
 }
