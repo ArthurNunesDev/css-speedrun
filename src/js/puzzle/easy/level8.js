@@ -13,7 +13,7 @@ export default {
 
   hint1: "Procure a classe special.",
 
-  hint2: "Classes podem ser combinadas diretamente.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Class_selectors",
 
   solution: ".arena > .card.special",
 }
