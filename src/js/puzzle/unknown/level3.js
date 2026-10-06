@@ -14,7 +14,7 @@ export default {
 
   hint1: "V\u00e1rios n\u00edveis de pseudo-classes.",
 
-  hint2: "Observe :is(), :where(), :has() e :not().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is(.alpha, .beta, .gamma):where([data-state=\"ready\"]):has(> .content > .item:nth-child(3)):not(:has(.blocked))",
 }
