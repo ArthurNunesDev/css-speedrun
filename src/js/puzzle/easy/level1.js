@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione o \u00fanico card ativo.",
 
-  hint2: "Use a classe active.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Class_selectors",
 
   solution: ".arena > .card.active",
 }
