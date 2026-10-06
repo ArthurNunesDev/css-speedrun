@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione a posi\u00e7\u00e3o \u00edmpar desejada.",
 
-  hint2: "Use uma f\u00f3rmula em :nth-child().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:nth-child",
 
   solution: ".arena > .card:nth-child(2n+1)",
 }
