@@ -14,7 +14,7 @@ export default {
 
   hint1: "O atributo come\u00e7a e termina com partes espec\u00edficas.",
 
-  hint2: "Combine ^= e $= no mesmo atributo.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-role^=\"tar\"][data-role$=\"get\"]:has(.special)",
 }
