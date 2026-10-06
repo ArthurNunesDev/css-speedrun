@@ -13,7 +13,7 @@ export default {
 
   hint1: "Tem target e n\u00e3o tem blocked.",
 
-  hint2: "Use dois :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:has(> .content > .target):not(:has(.blocked))",
 }
