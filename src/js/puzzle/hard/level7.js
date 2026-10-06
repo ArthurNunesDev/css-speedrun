@@ -13,7 +13,7 @@ export default {
 
   hint1: "Dois tipos v\u00e1lidos, disabled proibido.",
 
-  hint2: "Use :is() com atributos.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is([data-type=\"alpha\"], [data-type=\"beta\"]):not(.disabled)",
 }
