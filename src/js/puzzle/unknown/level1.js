@@ -14,7 +14,7 @@ export default {
 
   hint1: "O atributo come\u00e7a e termina com valores espec\u00edficos.",
 
-  hint2: "Combine ^=, $=, :not() e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-code^=\"ZX\"][data-code$=\"99\"]:not([data-state=\"locked\"]):has(> .content > .item.target:nth-child(3))",
 }
