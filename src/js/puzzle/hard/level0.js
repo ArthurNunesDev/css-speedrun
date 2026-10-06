@@ -13,7 +13,7 @@ export default {
 
   hint1: "N\u00e3o disabled e contendo target.",
 
-  hint2: "Combine :not() e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:not(.disabled):has(.target)",
 }
