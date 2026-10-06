@@ -14,7 +14,7 @@ export default {
 
   hint1: "A posi\u00e7\u00e3o do card tamb\u00e9m \u00e9 parte da solu\u00e7\u00e3o.",
 
-  hint2: "Combine posi\u00e7\u00e3o externa e interna.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:nth-child(2):not(.disabled):has(> .content > .item.special:nth-child(2)):not(:has(> .content > .item.decoy))",
 }
