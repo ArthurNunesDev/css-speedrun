@@ -13,7 +13,7 @@ export default {
 
   hint1: "C\u00f3digo come\u00e7a em X e special \u00e9 segundo.",
 
-  hint2: "Use ^= e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-code^=\"X\"]:has(.special:nth-child(2))",
 }
