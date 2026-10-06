@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione o segundo item.",
 
-  hint2: "Use :nth-child(2).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:nth-child",
 
   solution: ".arena > .item:nth-child(2)",
 }
