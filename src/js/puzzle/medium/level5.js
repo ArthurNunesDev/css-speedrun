@@ -13,7 +13,7 @@ export default {
 
   hint1: "Duas classes precisam ser exclu\u00eddas.",
 
-  hint2: "Encadeie :not().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:not",
 
   solution: ".arena > .card:not(.disabled):not(.hidden)",
 }
