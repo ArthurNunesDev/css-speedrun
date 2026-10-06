@@ -14,7 +14,7 @@ export default {
 
   hint1: "O chefe final combina tudo.",
 
-  hint2: "Construa da esquerda para a direita.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card[data-role=\"final\"]:is(.target, .candidate):not(.disabled):not([data-state=\"locked\"]):has(> .content > .item.special:nth-child(2)):not(:has(> .content > .item.decoy))",
 }
