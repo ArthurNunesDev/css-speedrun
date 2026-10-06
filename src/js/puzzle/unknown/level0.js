@@ -14,7 +14,7 @@ export default {
 
   hint1: "Quatro filtros precisam coincidir.",
 
-  hint2: "Monte o seletor em blocos.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is(.alpha, .omega)[data-state=\"ready\"]:not(.disabled):has(> .content > .item.special:nth-child(2))",
 }
