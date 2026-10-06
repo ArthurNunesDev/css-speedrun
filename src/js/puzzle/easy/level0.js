@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione o card target.",
 
-  hint2: "Combine .arena, > e .target.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Class_selectors",
 
   id: 'easy-01',
   title: 'O primeiro alvo',
