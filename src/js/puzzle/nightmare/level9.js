@@ -14,7 +14,7 @@ export default {
 
   hint1: "Target, n\u00e3o disabled, sem decoy e special na posi\u00e7\u00e3o 2.",
 
-  hint2: "\u00c9 uma combina\u00e7\u00e3o de quatro filtros.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card.target:not(.disabled):not(:has(.decoy)):has(> .content > .item.special:nth-child(2))",
 }
