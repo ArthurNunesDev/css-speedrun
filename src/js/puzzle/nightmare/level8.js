@@ -14,7 +14,7 @@ export default {
 
   hint1: "Tipo permitido, n\u00e3o locked e target.special.",
 
-  hint2: "Use :is(), atributo e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is([data-type=\"alpha\"], [data-type=\"omega\"]):not([data-state=\"locked\"]):has(.target.special)",
 }
