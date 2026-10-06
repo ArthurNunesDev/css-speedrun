@@ -13,7 +13,7 @@ export default {
 
   hint1: "Fam\u00edlia, special e aus\u00eancia de disabled.",
 
-  hint2: "Use :where(), :has() e :not().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:where",
 
   solution: ".arena > .card:where(.alpha, .omega):has(.special):not(.disabled)",
 }
