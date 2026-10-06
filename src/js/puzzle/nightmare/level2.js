@@ -14,7 +14,7 @@ export default {
 
   hint1: "Terceiro item e nenhum blocked.",
 
-  hint2: "Use :not(:has()).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:not",
 
   solution: ".arena > .card:has(> .content > .item:nth-child(3)):not(:has(> .content > .item.blocked))",
 }
