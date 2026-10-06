@@ -51,8 +51,8 @@ main section {
 }
 
 .left-column {
-  flex: 1 1 0;
-  width: auto;
+  flex: 0 0 calc(60% - 5px);
+  width: calc(60% - 5px);
   min-width: 0;
   margin: 0;
 
@@ -64,8 +64,8 @@ main section {
 }
 
 .right-column {
-  flex: 0 0 20%;
-  width: auto;
+  flex: 0 0 calc(40% - 5px);
+  width: calc(40% - 5px);
   min-width: 0;
   margin: 0;
 
@@ -115,8 +115,22 @@ main section {
   background: var(--nc-bg-2);
   border: 0;
   box-shadow: none;
-  line-height: 1.5;
-  white-space: pre;
+  line-height: inherit;
+  white-space: normal;
+}
+
+#html-goal .goal-line {
+  display: block;
+  width: 100%;
+  height: 1.5em;
+  min-height: 1.5em;
+  line-height: inherit;
+  text-align: right;
+  white-space: nowrap;
+}
+
+#html-goal .goal-line--target {
+  font-size: 1em;
 }
 
 #html-goal code {
