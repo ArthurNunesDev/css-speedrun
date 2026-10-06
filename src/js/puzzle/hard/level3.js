@@ -13,7 +13,7 @@ export default {
 
   hint1: "Terceiro card com segundo item.",
 
-  hint2: "Combine posi\u00e7\u00e3o e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:nth-child(3):has(> .item:nth-child(2))",
 }
