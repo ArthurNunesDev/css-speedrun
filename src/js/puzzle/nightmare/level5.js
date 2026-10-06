@@ -14,7 +14,7 @@ export default {
 
   hint1: "Duas exclus\u00f5es e um target na posi\u00e7\u00e3o 2.",
 
-  hint2: "Encadeie :not() e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:not",
 
   solution: ".arena > .card:not(.disabled):not(.hidden):has(> .content > .item.target:nth-child(2))",
 }
