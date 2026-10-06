@@ -14,7 +14,7 @@ export default {
 
   hint1: "Dois estados aceitos e duas condi\u00e7\u00f5es internas.",
 
-  hint2: "Use :is() com atributos.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is([data-state=\"ready\"], [data-state=\"armed\"]):not([data-state=\"locked\"]):has(> .content > .item.special):not(:has(> .content > .item.blocked))",
 }
