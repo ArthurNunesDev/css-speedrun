@@ -14,7 +14,7 @@ export default {
 
   hint1: "Estado ready, sem lock e com target.",
 
-  hint2: "Combine atributos e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-state=\"ready\"]:not([data-lock=\"true\"]):has(> .content > .item.target)",
 }
