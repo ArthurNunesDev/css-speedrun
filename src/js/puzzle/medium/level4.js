@@ -14,7 +14,7 @@ export default {
 
   hint1: "Conte apenas cards do mesmo tipo.",
 
-  hint2: "Use :nth-of-type(3).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:nth-of-type",
 
   solution: ".arena > .card:nth-of-type(3)",
 }
