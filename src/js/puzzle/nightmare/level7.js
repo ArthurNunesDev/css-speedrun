@@ -14,7 +14,7 @@ export default {
 
   hint1: "Segundo item presente, primeiro n\u00e3o pode ser special.",
 
-  hint2: "Pense nas duas condi\u00e7\u00f5es internas.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card[data-state=\"ready\"]:has(> .content > .item:nth-child(2)):not(:has(> .content > .item:first-child.special))",
 }
