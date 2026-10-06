@@ -13,7 +13,7 @@ export default {
 
   hint1: "O primeiro card \u00e9 o alvo.",
 
-  hint2: "Use :first-child.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/:first-child",
 
   solution: ".arena > .card:first-child",
 }
