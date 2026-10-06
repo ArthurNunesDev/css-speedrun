@@ -106,13 +106,26 @@ main section {
   }
 }
 
+.codebox > pre:first-child {
+  flex: 0 0 54px;
+  width: 54px;
+  min-width: 54px;
+  margin: 0;
+  padding: 0;
+  background: #343a40 !important;
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
 #html-goal {
+  display: block;
   width: 54px;
   box-sizing: border-box;
   margin: 0;
   padding: 0 10px 0 0;
   text-align: right;
-  background: #343a40;
+  background: #343a40 !important;
   border: 0;
   box-shadow: none;
   line-height: inherit;
