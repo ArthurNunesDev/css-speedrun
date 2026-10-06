@@ -465,7 +465,7 @@ const highlightMarkup = markup =>
       Prism.highlight(line, Prism.languages.markup, 'markup')
     )
     .map(line => `<span class="source-line">${line || '&nbsp;'}</span>`)
-    .join('\n')
+    .join('')
 
 const previewSelector = () => {
   clearSelectionPreview()
