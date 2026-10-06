@@ -13,7 +13,7 @@ export default {
 
   hint1: "Alpha ou beta, contendo special.",
 
-  hint2: "Use :is() e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is(.alpha, .beta):has(.special)",
 }
