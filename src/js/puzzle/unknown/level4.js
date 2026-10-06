@@ -14,7 +14,7 @@ export default {
 
   hint1: "Atributo, posi\u00e7\u00e3o, exclus\u00e3o e estrutura.",
 
-  hint2: "N\u00e3o remova nenhuma condi\u00e7\u00e3o.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-role*=\"target\"]:not(.disabled):has(> .content > .item.special:nth-child(2)):not(:has(> .content > .item.decoy))",
 }
