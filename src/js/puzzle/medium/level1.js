@@ -13,7 +13,7 @@ export default {
 
   hint1: "A segunda row, que tem um segundo item.",
 
-  hint2: "Use :nth-child() e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .row:nth-child(2):has(> .item:nth-child(2))",
 }
