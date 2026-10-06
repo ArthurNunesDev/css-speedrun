@@ -13,7 +13,7 @@ export default {
 
   hint1: "Ignore o card disabled.",
 
-  hint2: "Use :not().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:not",
 
   solution: ".arena > .card:not(.disabled)",
 }
