@@ -13,7 +13,7 @@ export default {
 
   hint1: "O \u00faltimo card \u00e9 o alvo.",
 
-  hint2: "Use :last-child.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/:last-child",
 
   solution: ".arena > .card:last-child",
 }
