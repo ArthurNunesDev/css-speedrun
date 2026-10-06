@@ -13,7 +13,7 @@ export default {
 
   hint1: "O boss cont\u00e9m target dentro de content.",
 
-  hint2: "Combine atributo e :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-kind=\"boss\"]:has(> .content > .target)",
 }
