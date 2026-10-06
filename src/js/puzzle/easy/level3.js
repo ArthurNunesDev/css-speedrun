@@ -14,7 +14,7 @@ export default {
 
   hint1: "O terceiro card \u00e9 o alvo.",
 
-  hint2: "Use :nth-child(3).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:nth-child",
 
   solution: ".arena > .card:nth-child(3)",
 }
