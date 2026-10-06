@@ -14,7 +14,7 @@ export default {
 
   hint1: "Fam\u00edlia + special + aus\u00eancia de blocked.",
 
-  hint2: "Use :where() e :not(:has()).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:where",
 
   solution: ".arena > .card:where(.alpha, .beta):has(.special):not(:has(.blocked))",
 }
