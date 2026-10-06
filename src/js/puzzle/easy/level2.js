@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione o item target.",
 
-  hint2: "O alvo \u00e9 filho direto da arena.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Combinators",
 
   solution: ".arena > .item.target",
 }
