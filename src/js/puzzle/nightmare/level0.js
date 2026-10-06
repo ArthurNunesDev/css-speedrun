@@ -14,7 +14,7 @@ export default {
 
   hint1: "Classe, exclus\u00e3o e posi\u00e7\u00e3o interna.",
 
-  hint2: "Combine :is(), :not(), :has() e :nth-child().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is(.alpha, .beta):not(.disabled):has(> .content > .item.special:nth-child(2))",
 }
