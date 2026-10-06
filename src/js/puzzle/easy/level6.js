@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione a segunda row.",
 
-  hint2: "Use o combinador de filho e :nth-child(2).",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Combinators",
 
   solution: ".arena > .row:nth-child(2)",
 }
