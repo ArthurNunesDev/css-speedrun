@@ -14,7 +14,7 @@ export default {
 
   hint1: "Tipo, special, estado e posi\u00e7\u00e3o.",
 
-  hint2: "Todas as condi\u00e7\u00f5es importam.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:is",
 
   solution: ".arena > .card:is(.target, .candidate):has(.special):not(.disabled):nth-child(3)",
 }
