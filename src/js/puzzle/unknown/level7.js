@@ -14,7 +14,7 @@ export default {
 
   hint1: "O atributo tem in\u00edcio, meio e fim restritos.",
 
-  hint2: "Use tr\u00eas operadores de atributo.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Attribute_selectors",
 
   solution: ".arena > .card[data-key^=\"A\"][data-key*=\"X\"][data-key$=\"Z\"]:has(.target):not(:has(.fake))",
 }
