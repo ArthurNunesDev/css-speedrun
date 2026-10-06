@@ -13,7 +13,7 @@ export default {
 
   hint1: "Selecione o article que tem a classe target.",
 
-  hint2: "Use tag + classe: article.target.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/Class_selectors",
 
   solution: ".arena > article.target",
 }
