@@ -13,7 +13,7 @@ export default {
 
   hint1: "Tem terceiro item e n\u00e3o \u00e9 locked.",
 
-  hint2: "Combine :has() e :not().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:has(> .item:nth-child(3)):not(.locked)",
 }
