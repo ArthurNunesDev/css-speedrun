@@ -14,7 +14,7 @@ export default {
 
   hint1: "Duas buscas positivas e uma negativa.",
 
-  hint2: "Use m\u00faltiplos :has().",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:has",
 
   solution: ".arena > .card:is(.alpha, .beta):not(.disabled):not(:has(.fake)):has(> .content > .item.special:nth-child(2)):has(> .content > .item:nth-child(3))",
 }
