@@ -112,7 +112,7 @@ main section {
   min-width: 54px;
   margin: 0;
   padding: 0;
-  background: #343a40 !important;
+  background: #2d2d2d !important;
   border: 0;
   box-shadow: none;
   overflow: hidden;
@@ -125,7 +125,7 @@ main section {
   margin: 0;
   padding: 0 10px 0 0;
   text-align: right;
-  background: #343a40 !important;
+  background: #2d2d2d !important;
   border: 0;
   box-shadow: none;
   line-height: inherit;
@@ -170,7 +170,7 @@ main section {
 }
 
 .codebox > pre {
-  background: var(--nc-bg-2);
+  background: #2d2d2d !important;
   border: 0;
   box-shadow: none;
 }
