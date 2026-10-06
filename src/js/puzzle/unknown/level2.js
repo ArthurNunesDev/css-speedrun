@@ -14,7 +14,7 @@ export default {
 
   hint1: "Tem special, n\u00e3o tem decoy e n\u00e3o est\u00e1 locked.",
 
-  hint2: "Use :not(:has()) e atributo.",
+  hint2: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Reference/Selectors/:not",
 
   solution: ".arena > .card:not(:has(.decoy)):has(> .content > .item.special):not([data-state=\"locked\"])",
 }
